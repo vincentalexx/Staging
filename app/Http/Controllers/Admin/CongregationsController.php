@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Exports\PendataanJemaatExport;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Congregation\BulkDestroyCongregation;
 use App\Http\Requests\Admin\Congregation\DestroyCongregation;
@@ -16,10 +17,12 @@ use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
+use Maatwebsite\Excel\Facades\Excel;
 
 class CongregationsController extends Controller
 {
@@ -195,5 +198,10 @@ class CongregationsController extends Controller
         });
 
         return response(['message' => trans('brackets/admin-ui::admin.operation.succeeded')]);
+    }
+
+    public function exportExcel(Request $request)
+    {
+        return Excel::download(new PendataanJemaatExport(), 'pendataan-jemaat.xlsx');
     }
 }

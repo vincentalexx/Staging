@@ -65,6 +65,7 @@ Route::middleware(['auth:' . config('admin-auth.defaults.guard'), 'admin'])->gro
     Route::prefix('admin')->namespace('App\Http\Controllers\Admin')->name('admin/')->group(static function() {
         Route::prefix('congregations')->name('congregations/')->group(static function() {
             Route::get('/',                                             'CongregationsController@index')->name('index');
+            Route::get('/export-excel',                                 'CongregationsController@exportExcel')->name('export-excel');
             Route::get('/create',                                       'CongregationsController@create')->name('create');
             Route::post('/',                                            'CongregationsController@store')->name('store');
             Route::get('/{congregation}/edit',                          'CongregationsController@edit')->name('edit');

@@ -15,9 +15,22 @@
 </div>
 
 <div class="form-group row align-items-center" :class="{'has-danger': errors.has('jenis_kelamin'), 'has-success': fields.jenis_kelamin && fields.jenis_kelamin.valid }">
-    <label for="jenis_kelamin" class="col-form-label text-md-right" :class="isFormLocalized ? 'col-md-4' : 'col-md-2'">{{ trans('admin.congregation.columns.jenis_kelamin') }}</label>
-        <div :class="isFormLocalized ? 'col-md-4' : 'col-md-9 col-xl-8'">
-        <input type="text" v-model="form.jenis_kelamin" v-validate="'required'" @input="validate($event)" class="form-control" :class="{'form-control-danger': errors.has('jenis_kelamin'), 'form-control-success': fields.jenis_kelamin && fields.jenis_kelamin.valid}" id="jenis_kelamin" name="jenis_kelamin" placeholder="{{ trans('admin.congregation.columns.jenis_kelamin') }}">
+    <label for="jenis_kelamin" class="col-form-label text-md-right" :class="isFormLocalized ? 'col-md-4' : 'col-md-2'">J{{ trans('admin.congregation.columns.jenis_kelamin') }}</label>
+    <div :class="isFormLocalized ? 'col-md-4' : 'col-md-9 col-xl-8'">
+        <div class="row">
+            <div class="col-md-2">
+                <input type="radio" v-model="form.jenis_kelamin" class="form-control" id="laki_laki" placeholder="Laki-laki" value="laki_laki"> 
+            </div>
+            <div class="col-md-4">
+                Laki-laki
+            </div>
+            <div class="col-md-2">
+                <input type="radio" v-model="form.jenis_kelamin" class="form-control" id="perempuan" placeholder="Perempuan" value="perempuan">
+            </div>
+            <div class="col-md-4">
+                Perempuan
+            </div>
+        </div>
         <div v-if="errors.has('jenis_kelamin')" class="form-control-feedback form-text" v-cloak>@{{ errors.first('jenis_kelamin') }}</div>
     </div>
 </div>
@@ -35,7 +48,7 @@
     <div :class="isFormLocalized ? 'col-md-4' : 'col-sm-8'">
         <div class="input-group input-group--custom">
             <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
-            <datetime v-model="form.tgl_lahir" :config="datePickerConfig" v-validate="'required|date_format:yyyy-MM-dd HH:mm:ss'" class="flatpickr" :class="{'form-control-danger': errors.has('tgl_lahir'), 'form-control-success': fields.tgl_lahir && fields.tgl_lahir.valid}" id="tgl_lahir" name="tgl_lahir" placeholder="{{ trans('brackets/admin-ui::admin.forms.select_a_date') }}"></datetime>
+            <datetime v-model="form.tgl_lahir" :config="datePickerConfig" v-validate="'required'" class="flatpickr" :class="{'form-control-danger': errors.has('tgl_lahir'), 'form-control-success': fields.tgl_lahir && fields.tgl_lahir.valid}" id="tgl_lahir" name="tgl_lahir" placeholder="{{ trans('brackets/admin-ui::admin.forms.select_a_date') }}"></datetime>
         </div>
         <div v-if="errors.has('tgl_lahir')" class="form-control-feedback form-text" v-cloak>@{{ errors.first('tgl_lahir') }}</div>
     </div>

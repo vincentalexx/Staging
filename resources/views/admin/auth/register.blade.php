@@ -178,7 +178,7 @@
                 <h3>Jenis Kelamin</h3>
                 <div class="gender-option">
                     <div class="gender">
-                        <input type="radio" id="check-male" name="jenis_kelamin" value="laki-laki" checked />
+                        <input type="radio" id="check-male" name="jenis_kelamin" value="laki_laki" checked />
                         <label for="check-male">Laki-laki</label>
                     </div>
                     <div class="gender">

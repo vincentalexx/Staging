@@ -64,6 +64,7 @@ return [
             'index' => 'Jemaat',
             'create' => 'Tambah Jemaat',
             'edit' => 'Edit :name',
+            'export-excel' => 'Export Excel',
         ],
 
         'columns' => [

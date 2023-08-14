@@ -15,6 +15,8 @@
                     <div class="card-header">
                         <i class="fa fa-align-justify"></i> {{ trans('admin.congregation.actions.index') }}
                         <a class="btn btn-primary btn-spinner btn-sm pull-right m-b-0" href="{{ url('admin/congregations/create') }}" role="button"><i class="fa fa-plus"></i>&nbsp; {{ trans('admin.congregation.actions.create') }}</a>
+                        <span class="pull-right">&nbsp;</span>
+                        <a class="btn btn-primary btn-sm pull-right" :href="`{{ url('admin/congregations/export-excel') }}`" role="button"><i class="fa fa-file-excel-o"></i>&nbsp; {{ trans('admin.congregation.actions.export-excel') }}</a>
                     </div>
                     <div class="card-body" v-cloak>
                         <div class="card-block">
@@ -58,7 +60,7 @@
                                     <tr v-for="(item, index) in collection" :key="item.id" :class="bulkItems[item.id] ? 'bg-bulk' : ''">
                                         <td>@{{ pagination.state.from + index }}</td>
                                         <td>@{{ item.nama_lengkap }}</td>
-                                        <td>@{{ item.jenis_kelamin }}</td>
+                                        <td>@{{ item.jenis_kelamin == 'laki_laki' ? 'Laki-laki' : 'Perempuan' }}</td>
                                         <td>@{{ item.kelas }}</td>
                                         <td>@{{ item.tgl_lahir | date('DD MMM YYYY') }}</td>
                                         <td>@{{ item.alamat }}</td>
