@@ -100,7 +100,7 @@ class FillDefaultUserAndPermissions extends Migration
         $this->users = [
             [
                 'name' => 'Administrator',
-                'email' => 'admin@mail.com',
+                'email' => 'admin@beatgii.site',
                 'password' => Hash::make($this->password),
                 'remember_token' => null,
                 'created_at' => Carbon::now(),
