@@ -1,4 +1,4 @@
-<h1>Data Pendaftaran Camp 3 Generasi 2023</h1>
+<h1>Data Jemaat Remaja/Pemuda Beat GII Gardujati tahun {{ date('Y') }}-{{ date('Y') + 1 }}</h1>
 <table>
     <thead>
         <tr>
