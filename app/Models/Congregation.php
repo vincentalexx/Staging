@@ -12,8 +12,9 @@ class Congregation extends Model
         'id_card',    
         
         'nama_lengkap',
+        'sekolah',
         'jenis_kelamin',
-        'kelas',
+        'angkatan',
         'tgl_lahir',
         'alamat',
         'no_wa',
@@ -36,5 +37,10 @@ class Congregation extends Model
     public function getResourceUrlAttribute()
     {
         return url('/admin/congregations/'.$this->getKey());
+    }
+
+    public function attendanceCongregation() 
+    {
+        return $this->hasMany(CongregationAttendance::class);
     }
 }

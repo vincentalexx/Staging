@@ -35,11 +35,19 @@
     </div>
 </div>
 
-<div class="form-group row align-items-center" :class="{'has-danger': errors.has('kelas'), 'has-success': fields.kelas && fields.kelas.valid }">
-    <label for="kelas" class="col-form-label text-md-right" :class="isFormLocalized ? 'col-md-4' : 'col-md-2'">{{ trans('admin.congregation.columns.kelas') }}</label>
+<div class="form-group row align-items-center" :class="{'has-danger': errors.has('sekolah'), 'has-success': fields.sekolah && fields.sekolah.valid }">
+    <label for="sekolah" class="col-form-label text-md-right" :class="isFormLocalized ? 'col-md-4' : 'col-md-2'">{{ trans('admin.congregation.columns.sekolah') }}</label>
         <div :class="isFormLocalized ? 'col-md-4' : 'col-md-9 col-xl-8'">
-        <input type="text" v-model="form.kelas" v-validate="'required'" @input="validate($event)" class="form-control" :class="{'form-control-danger': errors.has('kelas'), 'form-control-success': fields.kelas && fields.kelas.valid}" id="kelas" name="kelas" placeholder="{{ trans('admin.congregation.columns.kelas') }}">
-        <div v-if="errors.has('kelas')" class="form-control-feedback form-text" v-cloak>@{{ errors.first('kelas') }}</div>
+        <input type="text" v-model="form.sekolah" v-validate="'required'" @input="validate($event)" class="form-control" :class="{'form-control-danger': errors.has('sekolah'), 'form-control-success': fields.sekolah && fields.sekolah.valid}" id="sekolah" name="sekolah" placeholder="{{ trans('admin.congregation.columns.sekolah') }}">
+        <div v-if="errors.has('sekolah')" class="form-control-feedback form-text" v-cloak>@{{ errors.first('sekolah') }}</div>
+    </div>
+</div>
+
+<div class="form-group row align-items-center" :class="{'has-danger': errors.has('angkatan'), 'has-success': fields.angkatan && fields.angkatan.valid }">
+    <label for="angkatan" class="col-form-label text-md-right" :class="isFormLocalized ? 'col-md-4' : 'col-md-2'">{{ trans('admin.congregation.columns.angkatan') }}</label>
+        <div :class="isFormLocalized ? 'col-md-4' : 'col-md-9 col-xl-8'">
+        <input type="text" v-model="form.angkatan" v-validate="'required'" @input="validate($event)" class="form-control" :class="{'form-control-danger': errors.has('angkatan'), 'form-control-success': fields.angkatan && fields.angkatan.valid}" id="angkatan" name="angkatan" placeholder="{{ trans('admin.congregation.columns.angkatan') }}">
+        <div v-if="errors.has('angkatan')" class="form-control-feedback form-text" v-cloak>@{{ errors.first('angkatan') }}</div>
     </div>
 </div>
 

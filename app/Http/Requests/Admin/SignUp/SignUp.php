@@ -28,8 +28,9 @@ class SignUp extends FormRequest
         return [
             'id_card' => ['sometimes'],
             'nama_lengkap' => ['required', 'string'],
+            'sekolah' => ['required', 'string'],
             'jenis_kelamin' => ['required', 'string'],
-            'kelas' => ['required', 'string'],
+            'angkatan' => ['required', 'string'],
             'tgl_lahir' => ['required', 'date'],
             'alamat' => ['required', 'string'],
             'no_wa' => ['required', 'string'],

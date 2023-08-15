@@ -150,19 +150,12 @@
                 <input type="text" name="nama_lengkap" placeholder="ex: John Doe" required />
             </div>
             <div class="input-box">
-                <label>Kelas</label>
-                <div class="select-box">
-                    <select name="kelas">
-                        <option hidden>- Kelas -</option>
-                        <option>7</option>
-                        <option>8</option>
-                        <option>9</option>
-                        <option>10</option>
-                        <option>11</option>
-                        <option>12</option>
-                        <option>Kuliah</option>
-                    </select>
-                </div>
+                <label>Angkatan</label>
+                <input type="text" name="angkatan" placeholder="ex: G18" required />
+            </div>
+            <div class="input-box">
+                <label>Tempat Sekolah/Kuliah</label>
+                <input type="text" name="sekolah" placeholder="ex: SMA Baru" required />
             </div>
             <div class="column">
                 <div class="input-box">

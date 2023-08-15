@@ -5,7 +5,8 @@
             <th>No</th>
             <th>Nama lengkap</th>
             <th>Jenis Kelamin</th>
-            <th>Kelas Sekarang</th>
+            <th>Angkatan</th>
+            <th>Tempat Sekolah/Kuliah</th>
             <th>Tgl. Lahir</th>
             <th>Alamat</th>
             <th>No. WA</th>
@@ -18,7 +19,8 @@
             <td>{{ $key+1 }}</td>
             <td>{{ $d->nama_lengkap }}</td>
             <td>{{ $d->jenis_kelamin == 'laki_laki' ? 'Laki-laki' : 'Perempuan' }}</td>
-            <td>{{ $d->kelas }}</td>
+            <td>{{ $d->angkatan }}</td>
+            <td>{{ $d->sekolah }}</td>
             <td>{{ date('d M Y', strtotime($d->tgl_lahir)) }}</td>
             <td>{{ $d->alamat }}</td>
             <td>{{ $d->no_wa }}</td>

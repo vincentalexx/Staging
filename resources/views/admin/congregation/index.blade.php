@@ -47,7 +47,7 @@
                                         <th :column="'no'">{{ trans('admin.congregation.columns.no') }}</th>
                                         <th is='sortable' :column="'nama_lengkap'">{{ trans('admin.congregation.columns.nama_lengkap') }}</th>
                                         <th is='sortable' :column="'jenis_kelamin'">{{ trans('admin.congregation.columns.jenis_kelamin') }}</th>
-                                        <th is='sortable' :column="'kelas'">{{ trans('admin.congregation.columns.kelas') }}</th>
+                                        <th is='sortable' :column="'angkatan'">{{ trans('admin.congregation.columns.angkatan') }}</th>
                                         <th is='sortable' :column="'tgl_lahir'">{{ trans('admin.congregation.columns.tgl_lahir') }}</th>
                                         <th is='sortable' :column="'alamat'">{{ trans('admin.congregation.columns.alamat') }}</th>
                                         <th is='sortable' :column="'no_wa'">{{ trans('admin.congregation.columns.no_wa') }}</th>
@@ -61,7 +61,7 @@
                                         <td>@{{ pagination.state.from + index }}</td>
                                         <td>@{{ item.nama_lengkap }}</td>
                                         <td>@{{ item.jenis_kelamin == 'laki_laki' ? 'Laki-laki' : 'Perempuan' }}</td>
-                                        <td>@{{ item.kelas }}</td>
+                                        <td>@{{ item.angkatan }}</td>
                                         <td>@{{ item.tgl_lahir | date('DD MMM YYYY') }}</td>
                                         <td>@{{ item.alamat }}</td>
                                         <td>@{{ item.no_wa }}</td>

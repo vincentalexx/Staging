@@ -20,7 +20,8 @@ class CreateCongregationsTable extends Migration
 
             $table->string('nama_lengkap');
             $table->string('jenis_kelamin');
-            $table->string('kelas');
+            $table->string('sekolah');
+            $table->string('angkatan');
             $table->date('tgl_lahir');
             $table->string('alamat');
             $table->string('no_wa');

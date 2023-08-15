@@ -26,17 +26,11 @@ class SignUpController extends Controller
      */
     public function store(SignUp $request)
     {
-        // dd("asd");
         // Sanitize input
         $sanitized = $request->getSanitized();
-        // dd($sanitized);
 
         // Store the Participant
         $congregation = Congregation::create($sanitized);
-
-        // if ($request->ajax()) {
-        //     return ['redirect' => url('thankyou'), 'message' => trans('brackets/admin-ui::admin.operation.succeeded')];
-        // }
 
         return redirect('thankyou');
     }

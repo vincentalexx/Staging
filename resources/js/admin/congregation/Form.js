@@ -7,12 +7,12 @@ Vue.component('congregation-form', {
             form: {
                 nama_lengkap:  '' ,
                 jenis_kelamin:  '' ,
-                kelas:  '' ,
+                angkatan:  '' ,
+                sekolah:  '' ,
                 tgl_lahir:  '' ,
                 alamat:  '' ,
                 no_wa:  '' ,
                 hobi:  '' ,
-                
             }
         }
     }

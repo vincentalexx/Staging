@@ -28,8 +28,9 @@ class UpdateCongregation extends FormRequest
         return [
             'id_card' => ['sometimes'],
             'nama_lengkap' => ['sometimes', 'string'],
+            'sekolah' => ['sometimes', 'string'],
             'jenis_kelamin' => ['sometimes', 'string'],
-            'kelas' => ['sometimes', 'string'],
+            'angkatan' => ['sometimes', 'string'],
             'tgl_lahir' => ['sometimes', 'date'],
             'alamat' => ['sometimes', 'string'],
             'no_wa' => ['sometimes', 'string'],
