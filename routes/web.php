@@ -85,8 +85,8 @@ Route::middleware(['auth:' . config('admin-auth.defaults.guard'), 'admin'])->gro
             Route::post('/',                                            'RolesController@store');
             Route::get('/{role}/edit',                                  'RolesController@edit')->name('edit_role');
             Route::post('/bulk-destroy',                                'RolesController@bulkDestroy')->name('roles/bulk-destroy');
-            Route::post('/role}',                                       'RolesController@update')->name('roles/update');
-            Route::delete('/role}',                                     'RolesController@destroy')->name('roles/destroy');
+            Route::post('/{role}',                                      'RolesController@update')->name('roles/update');
+            Route::delete('/{role}',                                    'RolesController@destroy')->name('roles/destroy');
         });
     });
 });
@@ -98,6 +98,8 @@ Route::middleware(['auth:' . config('admin-auth.defaults.guard'), 'admin'])->gro
             Route::get('/edit',                                         'CongregationAttendancesController@edit')->name('edit');
             Route::post('/update',                                      'CongregationAttendancesController@update')->name('update');
             Route::get('/get-congregation-list',                        'CongregationAttendancesController@getCongregationList');
+            Route::get('/edit/{congregationId}/{tanggal}',              'CongregationAttendancesController@editDetail')->name('editDetail');
+            Route::post('/update/{congregationId}/{tanggal}',           'CongregationAttendancesController@updateDetail')->name('editDetail');
         });
     });
 });

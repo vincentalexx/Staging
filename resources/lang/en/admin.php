@@ -111,6 +111,7 @@ return [
             'no' => 'No',
             'keterangan' => 'Keterangan',
             'tanggal' => 'Tanggal',
+            'jam_datang' => 'Jam Datang',
             'congregation' => 'Jemaat',
         ],
     ],

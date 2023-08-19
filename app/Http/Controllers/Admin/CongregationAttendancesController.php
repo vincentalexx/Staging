@@ -112,4 +112,53 @@ class CongregationAttendancesController extends Controller
 
         return response()->json($congregations);
     }
+    
+    public function editDetail($congregationId, $tanggal) {
+        $congregationAttendance = CongregationAttendance::where('congregation_id', $congregationId)
+                                    ->where('tanggal', $tanggal)
+                                    ->first();
+        
+        $congregation = Congregation::find($congregationId);
+
+        return view('admin.congregation-attendance.edit-detail', [
+            'congregationAttendance' => $congregationAttendance,
+            'tanggal' => $tanggal,
+            'congregation' => $congregation,
+        ]);
+    }
+    
+    public function updateDetail(Request $request, $congregationId, $tanggal) 
+    {
+        $jam_datang = $request->jam_datang;
+        if ($request->keterangan != null) {
+            $jam_datang = null;
+        }
+
+        $congregationAttendance = CongregationAttendance::where('congregation_id', $congregationId)
+                                    ->where('tanggal', $tanggal)
+                                    ->first();
+
+        if ($congregationAttendance != null) {
+            $congregationAttendance->update([
+                'jam_datang' => $jam_datang,
+                'keterangan' => $request->keterangan,
+            ]);
+        } else {
+            $congregationAttendance = CongregationAttendance::create([
+                'congregation_id' => $congregationId,
+                'tanggal' => $tanggal,
+                'jam_datang' => $jam_datang,
+                'keterangan' => $request->keterangan,
+            ]);
+        }
+
+        if ($request->ajax()) {
+            return [
+                'redirect' => url('admin/congregation-attendances'),
+                'message' => trans('brackets/admin-ui::admin.operation.succeeded'),
+            ];
+        }
+
+        return redirect('admin/congregation-attendances');
+    }
 }
