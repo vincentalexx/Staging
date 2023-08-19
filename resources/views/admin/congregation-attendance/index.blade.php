@@ -12,8 +12,8 @@
                     <!-- <a class="btn btn-primary btn-sm pull-right m-b-0 color-white" href="{{ url('admin/work-days/sync-fingerprint') }}" role="button" style="min-width: max-content"><i class="fa fa-500px"></i>&nbsp; {{ trans('admin.work-day.actions.sync-fingerprint') }}</a> -->
                     <!-- <button class="btn btn-primary btn-sm pull-right m-b-0 color-white" @click="importExcelPopup()" style="min-width: max-content"><i class="fa fa-file-excel-o"></i>&nbsp; {{ trans('admin.congregation-attendance.actions.export-attendance') }}</button> -->
                     <a class="btn btn-primary btn-spinner btn-sm pull-right m-b-0 color-white" href="{{ url('admin/congregation-attendances/edit') }}" role="button"><i class="fa fa-edit"></i>&nbsp; {{ trans('admin.congregation-attendance.actions.edit') }}</a>
-                    <span class="pull-right">&nbsp;</span>
-                    <a class="btn btn-primary btn-sm pull-right" :href="`{{ url('admin/congregation-attendances/export-excel') }}`" role="button"><i class="fa fa-file-excel-o"></i>&nbsp; {{ trans('admin.congregation-attendance.actions.export-excel') }}</a>
+                    <!-- <span class="pull-right">&nbsp;</span>
+                    <a class="btn btn-primary btn-sm pull-right" :href="`{{ url('admin/congregation-attendances/export-excel') }}`" role="button"><i class="fa fa-file-excel-o"></i>&nbsp; {{ trans('admin.congregation-attendance.actions.export-excel') }}</a> -->
                 </div>
                 <div class="card-body" v-cloak style="overflow-y: auto">
                     <form @submit.prevent="">
