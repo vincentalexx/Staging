@@ -39,7 +39,7 @@ class Congregation extends Model
         return url('/admin/congregations/'.$this->getKey());
     }
 
-    public function attendanceCongregation() 
+    public function congregationAttendance() 
     {
         return $this->hasMany(CongregationAttendance::class);
     }
