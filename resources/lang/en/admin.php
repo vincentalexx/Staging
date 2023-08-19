@@ -82,5 +82,38 @@ return [
         ],
     ],
 
+    'role' => [
+        'title' => 'Role',
+
+        'actions' => [
+            'index' => 'Role',
+            'create' => 'New Role',
+            'edit' => 'Edit :name',
+        ],
+
+        'columns' => [
+            'id' => 'No',
+            'name' => 'Role Name',
+            'guard_name' => 'Guard name',
+        ],
+    ],
+
+    'congregation-attendance' => [
+        'title' => 'Absensi Jemaat',
+
+        'actions' => [
+            'index' => 'Absensi Jemaat',
+            'edit' => 'Edit Absensi Jemaat',
+            'export-excel' => 'Export Excel',
+        ],
+
+        'columns' => [
+            'no' => 'No',
+            'keterangan' => 'Keterangan',
+            'tanggal' => 'Tanggal',
+            'congregation' => 'Jemaat',
+        ],
+    ],
+
     // Do not delete me :) I'm used for auto-generation
 ];

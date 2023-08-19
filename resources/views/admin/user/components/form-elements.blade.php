@@ -32,6 +32,16 @@
                     <div v-if="errors.has('password_confirmation')" class="form-control-feedback form-text" v-cloak>@{{ errors.first('password_confirmation') }}</div>
                 </div>
             </div>
+
+            <div class="form-group row align-items-center" :class="{'has-danger': errors.has('role_names'), 'has-success': this.fields.role_names && this.fields.role_names.valid }">
+                <label for="role_names" class="col-form-label text-md-right" :class="isFormLocalized ? 'col-md-4' : 'col-md-2'">
+                    {{ trans('admin.user.columns.roles') }} <span class="required-input">*</span>
+                </label>
+                <div :class="isFormLocalized ? 'col-md-4' : 'col-md-9 col-xl-8'">
+                    <multiselect name="role_names" v-model="form.role_names" placeholder="{{ trans('brackets/admin-ui::admin.forms.select_options') }}" :options="{{ $roles }}" :multiple="false" open-direction="bottom" v-validate="'required'" :class="{'form-control-danger': errors.has('role_names'), 'form-control-success': this.fields.role_names && this.fields.role_names.valid}"></multiselect>
+                    <div v-if="errors.has('role_names')" class="form-control-feedback form-text" v-cloak>@{{ errors.first('role_names') }}</div>
+                </div>
+            </div>
         </div>
         <div class="col-md-4">
             <p style="padding-left: 23px">Persyaratan Kata Sandi: </p>
@@ -57,7 +67,17 @@
         <label for="email" class="col-form-label text-md-right" :class="isFormLocalized ? 'col-md-4' : 'col-md-2'">{{ trans('admin.user.columns.email') }}</label>
             <div :class="isFormLocalized ? 'col-md-4' : 'col-md-9 col-xl-8'">
             <input type="email" v-model="form.email" v-validate="'required'" @input="validate($event)" class="form-control" :class="{'form-control-danger': errors.has('email'), 'form-control-success': fields.email && fields.email.valid}" id="email" name="email" placeholder="{{ trans('admin.user.columns.email') }}">
-            <div v-if="errors.has('email')" class="form-control-feedback form-text" v-cloak>@{{ errors.first('name') }}</div>
+            <div v-if="errors.has('email')" class="form-control-feedback form-text" v-cloak>@{{ errors.first('email') }}</div>
+        </div>
+    </div>
+
+    <div class="form-group row align-items-center" :class="{'has-danger': errors.has('role_names'), 'has-success': this.fields.role_names && this.fields.role_names.valid }">
+        <label for="role_names" class="col-form-label text-md-right" :class="isFormLocalized ? 'col-md-4' : 'col-md-2'">
+            {{ trans('admin.user.columns.roles') }} <span class="required-input">*</span>
+        </label>
+        <div :class="isFormLocalized ? 'col-md-4' : 'col-md-9 col-xl-8'">
+            <multiselect name="role_names" v-model="form.role_names" placeholder="{{ trans('brackets/admin-ui::admin.forms.select_options') }}" :options="{{ $roles }}" :multiple="false" open-direction="bottom" v-validate="'required'" :class="{'form-control-danger': errors.has('role_names'), 'form-control-success': this.fields.role_names && this.fields.role_names.valid}"></multiselect>
+            <div v-if="errors.has('role_names')" class="form-control-feedback form-text" v-cloak>@{{ errors.first('role_names') }}</div>
         </div>
     </div>
 </div>
