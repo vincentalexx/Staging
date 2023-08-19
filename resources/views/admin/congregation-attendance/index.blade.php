@@ -78,15 +78,15 @@
                                 <template v-for="(days, d) in getCongregationAttendancePeriod[index]">
                                     <template v-if="days.length > 0">
                                         <template v-for="day in days">
-                                            <td v-if="day.keterangan == 'Sakit'" style="background-color: yellow; text-align:center">
+                                            <td v-if="day.keterangan == 'Sakit'" style="background-color: yellow;">
                                                 Sakit
-                                                <a class="btn btn-primary btn-spinner btn-sm m-b-0 color-white" :href="'/admin/congregation-attendances/edit/' + item.id + '/' + day.tanggal" role="button"><i class="fa fa-edit"></i></a>
+                                                <a class="btn btn-primary btn-spinner btn-sm m-b-0 color-white pull-right" :href="'/admin/congregation-attendances/edit/' + item.id + '/' + day.tanggal" role="button"><i class="fa fa-edit"></i></a>
                                             </td>
-                                            <td v-else-if="day.keterangan == 'Izin'" style="background-color: orange; text-align:center">
+                                            <td v-else-if="day.keterangan == 'Izin'" style="background-color: orange;">
                                                 Izin
-                                                <a class="btn btn-primary btn-spinner btn-sm m-b-0 color-white" :href="'/admin/congregation-attendances/edit/' + item.id + '/' + day.tanggal" role="button"><i class="fa fa-edit"></i></a>
+                                                <a class="btn btn-primary btn-spinner btn-sm m-b-0 color-white pull-right" :href="'/admin/congregation-attendances/edit/' + item.id + '/' + day.tanggal" role="button"><i class="fa fa-edit"></i></a>
                                             </td>
-                                            <td v-else-if="day.keterangan == null" style="background-color: lightgreen; text-align:center">
+                                            <td v-else-if="day.keterangan == null" style="background-color: lightgreen;">
                                                 <a href="#" :id="'popover-target-'+day.id" style="color: black">
                                                     Masuk
                                                 </a>
@@ -94,13 +94,13 @@
                                                     <b>Jam Masuk : </b> @{{ day.jam_datang }}
                                                 </b-popover>
 
-                                                <a class="btn btn-primary btn-spinner btn-sm m-b-0 color-white" :href="'/admin/congregation-attendances/edit/' + item.id + '/' + day.tanggal" role="button"><i class="fa fa-edit"></i></a>
+                                                <a class="btn btn-primary btn-spinner btn-sm m-b-0 color-white pull-right" :href="'/admin/congregation-attendances/edit/' + item.id + '/' + day.tanggal" role="button"><i class="fa fa-edit"></i></a>
                                             </td>
                                         </template>
                                     </template>
-                                    <td v-else style="background-color: pink; text-align:center">
+                                    <td v-else style="background-color: pink;">
                                         -
-                                        <a class="btn btn-primary btn-spinner btn-sm m-b-0 color-white" :href="'/admin/congregation-attendances/edit/' + item.id + '/' + daysInPeriod[d]" role="button"><i class="fa fa-edit"></i></a>
+                                        <a class="btn btn-primary btn-spinner btn-sm m-b-0 color-white pull-right" :href="'/admin/congregation-attendances/edit/' + item.id + '/' + daysInPeriod[d]" role="button"><i class="fa fa-edit"></i></a>
                                     </td>
                                 </template>
                             </tr>
