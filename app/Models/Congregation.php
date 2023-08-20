@@ -19,6 +19,7 @@ class Congregation extends Model
         'alamat',
         'no_wa',
         'hobi',
+        'status',
     ];
     
     

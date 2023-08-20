@@ -80,20 +80,39 @@
                                         <template v-for="day in days">
                                             <td v-if="day.keterangan == 'Sakit'" style="background-color: yellow;">
                                                 Sakit
+                                                
+                                                <form @submit.prevent="deleteItem('/admin/congregation-attendances/delete/' + day.id)" class="pull-right">
+                                                    <button type="submit" class="btn btn-sm btn-danger" title="{{ trans('brackets/admin-ui::admin.btn.delete') }}"><i class="fa fa-trash-o"></i></button>
+                                                </form>
+                                                <span class="pull-right">&nbsp;</span>
                                                 <a class="btn btn-primary btn-spinner btn-sm m-b-0 color-white pull-right" :href="'/admin/congregation-attendances/edit/' + item.id + '/' + day.tanggal" role="button"><i class="fa fa-edit"></i></a>
                                             </td>
                                             <td v-else-if="day.keterangan == 'Izin'" style="background-color: orange;">
                                                 Izin
+                                                
+                                                <form @submit.prevent="deleteItem('/admin/congregation-attendances/delete/' + day.id)" class="pull-right">
+                                                    <button type="submit" class="btn btn-sm btn-danger" title="{{ trans('brackets/admin-ui::admin.btn.delete') }}"><i class="fa fa-trash-o"></i></button>
+                                                </form>
+                                                <span class="pull-right">&nbsp;</span>
                                                 <a class="btn btn-primary btn-spinner btn-sm m-b-0 color-white pull-right" :href="'/admin/congregation-attendances/edit/' + item.id + '/' + day.tanggal" role="button"><i class="fa fa-edit"></i></a>
                                             </td>
                                             <td v-else-if="day.keterangan == null" style="background-color: lightgreen;">
                                                 <a href="#" :id="'popover-target-'+day.id" style="color: black">
-                                                    Masuk
+                                                    <template v-if="day.tempat_kebaktian == 'SMP'">
+                                                        SMP
+                                                    </template>
+                                                    <template v-else-if="day.tempat_kebaktian == 'SMA'">
+                                                        SMA
+                                                    </template>
                                                 </a>
                                                 <b-popover :target="'popover-target-'+day.id" triggers="hover" placement="bottom">
                                                     <b>Jam Masuk : </b> @{{ day.jam_datang }}
                                                 </b-popover>
 
+                                                <form @submit.prevent="deleteItem('/admin/congregation-attendances/delete/' + day.id)" class="pull-right">
+                                                    <button type="submit" class="btn btn-sm btn-danger" title="{{ trans('brackets/admin-ui::admin.btn.delete') }}"><i class="fa fa-trash-o"></i></button>
+                                                </form>
+                                                <span class="pull-right">&nbsp;</span>
                                                 <a class="btn btn-primary btn-spinner btn-sm m-b-0 color-white pull-right" :href="'/admin/congregation-attendances/edit/' + item.id + '/' + day.tanggal" role="button"><i class="fa fa-edit"></i></a>
                                             </td>
                                         </template>

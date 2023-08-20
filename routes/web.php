@@ -100,6 +100,7 @@ Route::middleware(['auth:' . config('admin-auth.defaults.guard'), 'admin'])->gro
             Route::get('/get-congregation-list',                        'CongregationAttendancesController@getCongregationList');
             Route::get('/edit/{congregationId}/{tanggal}',              'CongregationAttendancesController@editDetail')->name('editDetail');
             Route::post('/update/{congregationId}/{tanggal}',           'CongregationAttendancesController@updateDetail')->name('editDetail');
+            Route::delete('/delete/{id}',                               'CongregationAttendancesController@destroyDetail')->name('editDetail');
         });
     });
 });

@@ -9,6 +9,7 @@ Vue.component('congregation-attendance-form', {
                 tanggal:  '' ,
                 listJemaat: [],
                 keterangan: '',
+                tempat_kebaktian: '',
             },
 
             datePickerConfig: {
@@ -23,6 +24,7 @@ Vue.component('congregation-attendance-form', {
             },
 
             keteranganList: ['Sakit', 'Izin'],
+            tempatKebaktianList: ['SMP', 'SMA'],
 
             dataJemaat: [],
         }

@@ -86,4 +86,12 @@
     </div>
 </div>
 
-
+<div class="form-group row align-items-center" :class="{'has-danger': errors.has('status'), 'has-success': this.fields.status && this.fields.status.valid }">
+    <label for="status" class="col-form-label text-md-right" :class="isFormLocalized ? 'col-md-4' : 'col-md-2'">
+        {{ trans('admin.congregation.columns.status') }}
+    </label>
+    <div :class="isFormLocalized ? 'col-md-4' : 'col-md-9 col-xl-8'">
+        <multiselect name="status" v-model="form.status" placeholder="{{ trans('brackets/admin-ui::admin.forms.select_options') }}" :options="statusList" :multiple="false" open-direction="bottom" v-validate="'required'" :class="{'form-control-danger': errors.has('status'), 'form-control-success': this.fields.status && this.fields.status.valid}"></multiselect>
+        <div v-if="errors.has('status')" class="form-control-feedback form-text" v-cloak>@{{ errors.first('status') }}</div>
+    </div>
+</div>

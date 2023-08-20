@@ -35,6 +35,7 @@ class UpdateCongregation extends FormRequest
             'alamat' => ['sometimes', 'string'],
             'no_wa' => ['sometimes', 'string'],
             'hobi' => ['sometimes', 'string'],
+            'status' => ['sometimes', 'string'],
         ];
     }
 

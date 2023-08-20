@@ -79,6 +79,7 @@ return [
             'alamat' => 'Alamat',
             'no_wa' => 'No wa',
             'hobi' => 'Hobi',
+            'status' => 'Status',
         ],
     ],
 
@@ -113,6 +114,7 @@ return [
             'tanggal' => 'Tanggal',
             'jam_datang' => 'Jam Datang',
             'congregation' => 'Jemaat',
+            'tempat_kebaktian' => 'Tempat Kebaktian',
         ],
     ],
 

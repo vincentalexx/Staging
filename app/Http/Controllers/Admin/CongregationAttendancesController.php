@@ -88,6 +88,7 @@ class CongregationAttendancesController extends Controller
                 'tanggal' => $request['tanggal'],
                 'jam_datang' => $jam_datang,
                 'keterangan' => $request->keterangan,
+                'tempat_kebaktian' => $request->tempat_kebaktian,
             ]);
         }
 
@@ -142,6 +143,7 @@ class CongregationAttendancesController extends Controller
             $congregationAttendance->update([
                 'jam_datang' => $jam_datang,
                 'keterangan' => $request->keterangan,
+                'tempat_kebaktian' => $request->tempat_kebaktian,
             ]);
         } else {
             $congregationAttendance = CongregationAttendance::create([
@@ -149,6 +151,7 @@ class CongregationAttendancesController extends Controller
                 'tanggal' => $tanggal,
                 'jam_datang' => $jam_datang,
                 'keterangan' => $request->keterangan,
+                'tempat_kebaktian' => $request->tempat_kebaktian,
             ]);
         }
 
@@ -160,5 +163,17 @@ class CongregationAttendancesController extends Controller
         }
 
         return redirect('admin/congregation-attendances');
+    }
+
+    public function destroyDetail(Request $request, $id)
+    {
+        $congregationAttendance = CongregationAttendance::find($id);
+        $congregationAttendance->delete();
+
+        if ($request->ajax()) {
+            return response(['message' => trans('brackets/admin-ui::admin.operation.succeeded')]);
+        }
+
+        return redirect()->back();
     }
 }

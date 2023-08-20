@@ -35,6 +35,7 @@ class StoreCongregation extends FormRequest
             'alamat' => ['required', 'string'],
             'no_wa' => ['required', 'string'],
             'hobi' => ['required', 'string'],
+            'status' => ['required', 'string'],
         ];
     }
 

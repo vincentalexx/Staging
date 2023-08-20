@@ -19,6 +19,16 @@
     </div>
 </div>
 
+<div class="form-group row align-items-center" :class="{'has-danger': errors.has('tempat_kebaktian'), 'has-success': this.fields.tempat_kebaktian && this.fields.tempat_kebaktian.valid }">
+    <label for="tempat_kebaktian" class="col-form-label text-md-right" :class="isFormLocalized ? 'col-md-4' : 'col-md-2'">
+        {{ trans('admin.congregation-attendance.columns.tempat_kebaktian') }}
+    </label>
+    <div :class="isFormLocalized ? 'col-md-4' : 'col-md-9 col-xl-8'">
+        <multiselect name="tempat_kebaktian" v-model="form.tempat_kebaktian" placeholder="{{ trans('brackets/admin-ui::admin.forms.select_options') }}" :options="tempatKebaktianList" :multiple="false" open-direction="bottom" v-validate="" :class="{'form-control-danger': errors.has('tempat_kebaktian'), 'form-control-success': this.fields.tempat_kebaktian && this.fields.tempat_kebaktian.valid}"></multiselect>
+        <div v-if="errors.has('tempat_kebaktian')" class="form-control-feedback form-text" v-cloak>@{{ errors.first('tempat_kebaktian') }}</div>
+    </div>
+</div>
+
 <div class="form-group row align-items-center" :class="{'has-danger': errors.has('keterangan'), 'has-success': this.fields.keterangan && this.fields.keterangan.valid }">
     <label for="keterangan" class="col-form-label text-md-right" :class="isFormLocalized ? 'col-md-4' : 'col-md-2'">
         {{ trans('admin.congregation-attendance.columns.keterangan') }}
