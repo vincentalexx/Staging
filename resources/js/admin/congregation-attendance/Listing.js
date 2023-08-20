@@ -35,7 +35,6 @@ Vue.component('congregation-attendance-listing', {
         },
         getCongregationAttendancePeriod() {
             let calendarData = []
-            // console.log(this.collection.attendance)
             if (this.items && this.daysInPeriod && this.collection.attendance) {
                 this.items.map((user, u) => {
                     calendarData[u] = []
@@ -70,7 +69,6 @@ Vue.component('congregation-attendance-listing', {
                 if (dt.format("d") == 0) {
                     days.push(myDate)
                 }
-                
             }
 
             let nameOfMonth = this.nameOfMonth
