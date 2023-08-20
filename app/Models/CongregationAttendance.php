@@ -15,6 +15,7 @@ class CongregationAttendance extends Model
         'tanggal',
         'jam_datang',
         'keterangan',
+        'tempat_kebaktian',
     ];
 
     public function congregation() 

@@ -75,3 +75,32 @@ Route::middleware(['auth:' . config('admin-auth.defaults.guard'), 'admin'])->gro
         });
     });
 });
+
+/* Auto-generated admin routes */
+Route::middleware(['auth:' . config('admin-auth.defaults.guard'), 'admin'])->group(static function () {
+    Route::prefix('admin')->namespace('App\Http\Controllers\Admin')->name('admin/')->group(static function() {
+        Route::prefix('roles')->name('roles/')->group(static function() {
+            Route::get('/',                                             'RolesController@index')->name('roles_index');
+            Route::get('/create',                                       'RolesController@create')->name('create_role');
+            Route::post('/',                                            'RolesController@store');
+            Route::get('/{role}/edit',                                  'RolesController@edit')->name('edit_role');
+            Route::post('/bulk-destroy',                                'RolesController@bulkDestroy')->name('roles/bulk-destroy');
+            Route::post('/{role}',                                      'RolesController@update')->name('roles/update');
+            Route::delete('/{role}',                                    'RolesController@destroy')->name('roles/destroy');
+        });
+    });
+});
+
+Route::middleware(['auth:' . config('admin-auth.defaults.guard'), 'admin'])->group(static function () {
+    Route::prefix('admin')->namespace('App\Http\Controllers\Admin')->name('admin/')->group(static function() {
+        Route::prefix('congregation-attendances')->name('congregation-attendances/')->group(static function() {
+            Route::get('/',                                             'CongregationAttendancesController@index')->name('index');
+            Route::get('/edit',                                         'CongregationAttendancesController@edit')->name('edit');
+            Route::post('/update',                                      'CongregationAttendancesController@update')->name('update');
+            Route::get('/get-congregation-list',                        'CongregationAttendancesController@getCongregationList');
+            Route::get('/edit/{congregationId}/{tanggal}',              'CongregationAttendancesController@editDetail')->name('editDetail');
+            Route::post('/update/{congregationId}/{tanggal}',           'CongregationAttendancesController@updateDetail')->name('editDetail');
+            Route::delete('/delete/{id}',                               'CongregationAttendancesController@destroyDetail')->name('editDetail');
+        });
+    });
+});

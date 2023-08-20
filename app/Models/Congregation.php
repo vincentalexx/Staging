@@ -19,6 +19,7 @@ class Congregation extends Model
         'alamat',
         'no_wa',
         'hobi',
+        'status',
     ];
     
     
@@ -39,7 +40,7 @@ class Congregation extends Model
         return url('/admin/congregations/'.$this->getKey());
     }
 
-    public function attendanceCongregation() 
+    public function congregationAttendance() 
     {
         return $this->hasMany(CongregationAttendance::class);
     }

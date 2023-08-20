@@ -1,0 +1,32 @@
+@extends('admin.layout.default')
+
+@section('title', trans('admin.congregation-attendance.actions.edit'))
+
+@section('body')
+    <div class="container-xl">
+        <div class="card">
+            <congregation-attendance-edit-detail-form
+                :action="'{{ url('admin/congregation-attendances/update/' . $congregation->id . '/' . $tanggal) }}'"
+                :data="{{ $congregationAttendance == null ? '{}' : $congregationAttendance->toJson() }}"
+                v-cloak
+                inline-template>
+                <form class="form-horizontal form-create" method="post" @submit.prevent="onSubmit" :action="action" novalidate>
+                    <div class="card-header">
+                        <i class="fa fa-plus"></i> {{ trans('admin.congregation-attendance.actions.edit') }}
+                    </div>
+
+                    <div class="card-body">
+                        @include('admin.congregation-attendance.components.form-elements-edit-detail')
+                    </div>
+                                    
+                    <div class="card-footer">
+                        <button type="submit" class="btn btn-primary" :disabled="submiting">
+                            <i class="fa" :class="submiting ? 'fa-spinner' : 'fa-download'"></i>
+                            {{ trans('brackets/admin-ui::admin.btn.save') }}
+                        </button>
+                    </div>
+                </form>
+            </congregation-attendance-edit-detail-form>
+        </div>
+    </div>
+@endsection

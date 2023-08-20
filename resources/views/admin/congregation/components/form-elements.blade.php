@@ -56,7 +56,7 @@
     <div :class="isFormLocalized ? 'col-md-4' : 'col-sm-8'">
         <div class="input-group input-group--custom">
             <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
-            <datetime v-model="form.tgl_lahir" :config="datePickerConfig" v-validate="'required'" class="flatpickr" :class="{'form-control-danger': errors.has('tgl_lahir'), 'form-control-success': fields.tgl_lahir && fields.tgl_lahir.valid}" id="tgl_lahir" name="tgl_lahir" placeholder="{{ trans('brackets/admin-ui::admin.forms.select_a_date') }}"></datetime>
+            <datetime v-model="form.tgl_lahir" :config="datePickerConfig" ref="tgl_lahir" v-validate="'required'" class="flatpickr" :class="{'form-control-danger': errors.has('tgl_lahir'), 'form-control-success': fields.tgl_lahir && fields.tgl_lahir.valid}" id="tgl_lahir" name="tgl_lahir" placeholder="{{ trans('brackets/admin-ui::admin.forms.select_a_date') }}"></datetime>
         </div>
         <div v-if="errors.has('tgl_lahir')" class="form-control-feedback form-text" v-cloak>@{{ errors.first('tgl_lahir') }}</div>
     </div>
@@ -86,4 +86,12 @@
     </div>
 </div>
 
-
+<div class="form-group row align-items-center" :class="{'has-danger': errors.has('status'), 'has-success': this.fields.status && this.fields.status.valid }">
+    <label for="status" class="col-form-label text-md-right" :class="isFormLocalized ? 'col-md-4' : 'col-md-2'">
+        {{ trans('admin.congregation.columns.status') }}
+    </label>
+    <div :class="isFormLocalized ? 'col-md-4' : 'col-md-9 col-xl-8'">
+        <multiselect name="status" v-model="form.status" placeholder="{{ trans('brackets/admin-ui::admin.forms.select_options') }}" :options="statusList" :multiple="false" open-direction="bottom" v-validate="'required'" :class="{'form-control-danger': errors.has('status'), 'form-control-success': this.fields.status && this.fields.status.valid}"></multiselect>
+        <div v-if="errors.has('status')" class="form-control-feedback form-text" v-cloak>@{{ errors.first('status') }}</div>
+    </div>
+</div>

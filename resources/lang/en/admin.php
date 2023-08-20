@@ -79,6 +79,42 @@ return [
             'alamat' => 'Alamat',
             'no_wa' => 'No wa',
             'hobi' => 'Hobi',
+            'status' => 'Status',
+        ],
+    ],
+
+    'role' => [
+        'title' => 'Role',
+
+        'actions' => [
+            'index' => 'Role',
+            'create' => 'New Role',
+            'edit' => 'Edit :name',
+        ],
+
+        'columns' => [
+            'id' => 'No',
+            'name' => 'Role Name',
+            'guard_name' => 'Guard name',
+        ],
+    ],
+
+    'congregation-attendance' => [
+        'title' => 'Absensi Jemaat',
+
+        'actions' => [
+            'index' => 'Absensi Jemaat',
+            'edit' => 'Edit Absensi Jemaat',
+            'export-excel' => 'Export Excel',
+        ],
+
+        'columns' => [
+            'no' => 'No',
+            'keterangan' => 'Keterangan',
+            'tanggal' => 'Tanggal',
+            'jam_datang' => 'Jam Datang',
+            'congregation' => 'Jemaat',
+            'tempat_kebaktian' => 'Tempat Kebaktian',
         ],
     ],
 

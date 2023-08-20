@@ -13,8 +13,17 @@ Vue.component('congregation-form', {
                 alamat:  '' ,
                 no_wa:  '' ,
                 hobi:  '' ,
-            }
-        }
-    }
+                status:  'Jemaat' ,
+            },
 
+            statusList: ['Jemaat', 'Pengurus'],
+
+            datePickerConfig: {
+                altInput: true,
+                altFormat: "F j, Y",
+                dateFormat: "Y-m-d",
+                maxDate: new Date(),
+            },
+        }
+    },
 });
