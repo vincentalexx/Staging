@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Exports\AbsensiJemaatExport;
 use App\Http\Controllers\Controller;
 use App\Models\Congregation;
 use App\Models\CongregationAttendance;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class CongregationAttendancesController extends Controller
 {
@@ -113,6 +115,42 @@ class CongregationAttendancesController extends Controller
 
         return response()->json($congregations);
     }
+
+    public function getTotalHadir(Request $request) {
+        $attendances = CongregationAttendance::whereNull('keterangan')
+                                ->whereYear('tanggal', $request->year)
+                                ->whereMonth('tanggal', $request->month)
+                                ->get(['id', 'tanggal', 'tempat_kebaktian']);
+
+        $selectedMonth = strtotime($request->year . '-' . $request->month . '-01');
+        $dateOfMonth = date('t', $selectedMonth);
+        $totalHadirSMP = [];
+        $totalHadirSMA = [];
+        for ($i = 1; $i <= $dateOfMonth; $i++) {
+            if (date('w', strtotime($request->year . '-' . $request->month . '-' . $i)) == 0) {
+                $daysInPeriod[] = $request->year . '-' . $request->month . '-' . $i;
+                $totalHadirSMP[strtotime($request->year . '-' . $request->month . '-' . $i)] = 0;
+                $totalHadirSMA[strtotime($request->year . '-' . $request->month . '-' . $i)] = 0;
+            }
+        }
+
+        foreach ($attendances as $attendance) {
+            foreach ($daysInPeriod as $d => $day) {
+                if (strtotime($attendance->tanggal) == strtotime($day)) {
+                    if ($attendance->keterangan == null && $attendance->tempat_kebaktian == "SMP") {
+                        $totalHadirSMP[strtotime($day)] += 1;
+                    } else if ($attendance->keterangan == null && $attendance->tempat_kebaktian == "SMA") {
+                        $totalHadirSMA[strtotime($day)] += 1;
+                    }
+                }
+            }
+        }
+
+        return response()->json([
+            'totalHadirSMP' => $totalHadirSMP,
+            'totalHadirSMA' => $totalHadirSMA,
+        ]);
+    }
     
     public function editDetail($congregationId, $tanggal) {
         $congregationAttendance = CongregationAttendance::where('congregation_id', $congregationId)
@@ -175,5 +213,50 @@ class CongregationAttendancesController extends Controller
         }
 
         return redirect()->back();
+    }
+
+    public function exportExcel(Request $request, $year, $month)
+    {
+        $bulan = "";
+        switch ($month) {
+            case 1:
+                $bulan = "Januari";
+                break;
+            case 2:
+                $bulan = "Februari";
+                break;
+            case 3:
+                $bulan = "Maret";
+                break;
+            case 4:
+                $bulan = "April";
+                break;
+            case 5:
+                $bulan = "Mei";
+                break;
+            case 6:
+                $bulan = "Juni";
+                break;
+            case 7:
+                $bulan = "Juli";
+                break;
+            case 8:
+                $bulan = "Agustus";
+                break;
+            case 9:
+                $bulan = "September";
+                break;
+            case 10:
+                $bulan = "Oktober";
+                break;
+            case 11:
+                $bulan = "November";
+                break;
+            case 12:
+                $bulan = "Desember";
+                break;
+        }
+
+        return Excel::download(new AbsensiJemaatExport($year, $month, $bulan), 'Absensi Jemaat Bulan ' . $bulan . ' ' . $year . '.xlsx');
     }
 }

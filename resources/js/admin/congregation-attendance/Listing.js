@@ -1,3 +1,4 @@
+import axios from 'axios';
 import AppListing from '../app-components/Listing/AppListing';
 
 Vue.component('congregation-attendance-listing', {
@@ -17,6 +18,8 @@ Vue.component('congregation-attendance-listing', {
             period_name: '',
             isAfterPeriod: false,
             isBeforePeriod: false,
+            totalHadirSMP: [],
+            totalHadirSMA: [],
 
             datePickerConfig: {
                 dateFormat: "Y-m-d",
@@ -35,7 +38,6 @@ Vue.component('congregation-attendance-listing', {
         },
         getCongregationAttendancePeriod() {
             let calendarData = []
-            // console.log(this.collection.attendance)
             if (this.items && this.daysInPeriod && this.collection.attendance) {
                 this.items.map((user, u) => {
                     calendarData[u] = []
@@ -54,6 +56,7 @@ Vue.component('congregation-attendance-listing', {
     methods: {
         getCalendarData() {
             this.getMonthArray(this.year, this.month)
+            this.getTotalHadir(this.year, this.month)
         },
         getMonthArray(year, month) {
             let days = [];
@@ -70,9 +73,8 @@ Vue.component('congregation-attendance-listing', {
                 if (dt.format("d") == 0) {
                     days.push(myDate)
                 }
-                
             }
-
+            
             let nameOfMonth = this.nameOfMonth
 
             switch (month) {
@@ -119,6 +121,19 @@ Vue.component('congregation-attendance-listing', {
             this.filter("month", this.month)
             this.filter("year", this.year)
         },
+        getTotalHadir(year, month) {
+            axios({
+                method: "GET",
+                url: "/admin/congregation-attendances/get-total-hadir",
+                params: {
+                    year: year,
+                    month: month
+                }
+            }).then(response => {
+                this.totalHadirSMP = response.data.totalHadirSMP
+                this.totalHadirSMA = response.data.totalHadirSMA
+            })
+        },
         prevMonth() {
             let year = this.year
             let month = this.month
@@ -133,6 +148,7 @@ Vue.component('congregation-attendance-listing', {
             this.year = year
 
             this.getMonthArray(year, month)
+            this.getTotalHadir(year, month)
         },
         nextMonth() {
             let year = this.year
@@ -148,6 +164,7 @@ Vue.component('congregation-attendance-listing', {
             this.year = year
 
             this.getMonthArray(year, month)
+            this.getTotalHadir(year, month)
         },
         currentMonth() {
             let date = new Date();
@@ -161,6 +178,7 @@ Vue.component('congregation-attendance-listing', {
             this.year = year
 
             this.getMonthArray(year, month)
+            this.getTotalHadir(year, month)
         },
         importExcelPopup() {
             this.$swal({

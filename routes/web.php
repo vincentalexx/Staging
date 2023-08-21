@@ -95,9 +95,11 @@ Route::middleware(['auth:' . config('admin-auth.defaults.guard'), 'admin'])->gro
     Route::prefix('admin')->namespace('App\Http\Controllers\Admin')->name('admin/')->group(static function() {
         Route::prefix('congregation-attendances')->name('congregation-attendances/')->group(static function() {
             Route::get('/',                                             'CongregationAttendancesController@index')->name('index');
+            Route::get('/export-excel/{year}/{month}',                  'CongregationAttendancesController@exportExcel')->name('export-excel');
             Route::get('/edit',                                         'CongregationAttendancesController@edit')->name('edit');
             Route::post('/update',                                      'CongregationAttendancesController@update')->name('update');
             Route::get('/get-congregation-list',                        'CongregationAttendancesController@getCongregationList');
+            Route::get('/get-total-hadir',                              'CongregationAttendancesController@getTotalHadir');
             Route::get('/edit/{congregationId}/{tanggal}',              'CongregationAttendancesController@editDetail')->name('editDetail');
             Route::post('/update/{congregationId}/{tanggal}',           'CongregationAttendancesController@updateDetail')->name('editDetail');
             Route::delete('/delete/{id}',                               'CongregationAttendancesController@destroyDetail')->name('editDetail');
