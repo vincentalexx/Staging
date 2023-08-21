@@ -66,6 +66,16 @@
                     <table class="table table-hover table-bordered">
                         <thead>
                             <tr>
+                                <th></th>
+                                <th></th>
+                                <th v-for="kehadiranSMP in totalHadirSMP">SMP: @{{ kehadiranSMP }} orang</th>
+                            </tr>
+                            <tr>
+                                <th></th>
+                                <th></th>
+                                <th v-for="kehadiranSMA in totalHadirSMA">SMA: @{{ kehadiranSMA }} orang</th>
+                            </tr>
+                            <tr>
                                 <th style="width: 10px">{{ trans('admin.congregation-attendance.columns.no') }}</th>
                                 <th is='sortable' :column="'nama_lengkap'">{{ trans('admin.congregation-attendance.columns.congregation') }}</th>
                                 <th v-for="days in daysInPeriod">@{{ days | date('DD MMM YYYY') }}</th>

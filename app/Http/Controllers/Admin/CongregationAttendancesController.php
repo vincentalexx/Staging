@@ -115,6 +115,42 @@ class CongregationAttendancesController extends Controller
 
         return response()->json($congregations);
     }
+
+    public function getTotalHadir(Request $request) {
+        $attendances = CongregationAttendance::whereNull('keterangan')
+                                ->whereYear('tanggal', $request->year)
+                                ->whereMonth('tanggal', $request->month)
+                                ->get(['id', 'tanggal', 'tempat_kebaktian']);
+
+        $selectedMonth = strtotime($request->year . '-' . $request->month . '-01');
+        $dateOfMonth = date('t', $selectedMonth);
+        $totalHadirSMP = [];
+        $totalHadirSMA = [];
+        for ($i = 1; $i <= $dateOfMonth; $i++) {
+            if (date('w', strtotime($request->year . '-' . $request->month . '-' . $i)) == 0) {
+                $daysInPeriod[] = $request->year . '-' . $request->month . '-' . $i;
+                $totalHadirSMP[strtotime($request->year . '-' . $request->month . '-' . $i)] = 0;
+                $totalHadirSMA[strtotime($request->year . '-' . $request->month . '-' . $i)] = 0;
+            }
+        }
+
+        foreach ($attendances as $attendance) {
+            foreach ($daysInPeriod as $d => $day) {
+                if (strtotime($attendance->tanggal) == strtotime($day)) {
+                    if ($attendance->keterangan == null && $attendance->tempat_kebaktian == "SMP") {
+                        $totalHadirSMP[strtotime($day)] += 1;
+                    } else if ($attendance->keterangan == null && $attendance->tempat_kebaktian == "SMA") {
+                        $totalHadirSMA[strtotime($day)] += 1;
+                    }
+                }
+            }
+        }
+
+        return response()->json([
+            'totalHadirSMP' => $totalHadirSMP,
+            'totalHadirSMA' => $totalHadirSMA,
+        ]);
+    }
     
     public function editDetail($congregationId, $tanggal) {
         $congregationAttendance = CongregationAttendance::where('congregation_id', $congregationId)
