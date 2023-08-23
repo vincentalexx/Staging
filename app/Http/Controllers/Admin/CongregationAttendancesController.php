@@ -259,4 +259,24 @@ class CongregationAttendancesController extends Controller
 
         return Excel::download(new AbsensiJemaatExport($year, $month, $bulan), 'Absensi Jemaat Bulan ' . $bulan . ' ' . $year . '.xlsx');
     }
+
+
+    /**
+     * API Card Detection
+     */
+    public function createCongregationAttendance(Request $request) {
+        $congregation = Congregation::whereIdCard($request->id_card)->first();
+
+        $congregationAttendance = CongregationAttendance::create([
+            'congregation_id' => $congregation->id,
+            'tanggal' => date('Y-m-d'),
+            'jam_datang' => date('H:m:s'),
+            'tempat_kebaktian' => $request->tempat_kebaktian,
+        ]);
+
+        return response()->json([
+            'message' => 'Data berhasil dibuat',
+            'status' => 201
+        ]);
+    }
 }

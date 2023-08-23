@@ -17,3 +17,9 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::prefix('admin')->namespace('App\Http\Controllers\Admin')->name('admin/')->group(static function() {
+    Route::prefix('congregation-attendances')->name('congregation-attendances/')->group(static function() {
+        Route::post('/congregation-attendance/create',              'CongregationAttendancesController@createCongregationAttendance');
+    });
+});
