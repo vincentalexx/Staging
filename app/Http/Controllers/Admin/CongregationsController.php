@@ -48,7 +48,7 @@ class CongregationsController extends Controller
         if(!empty($search)) {
             $data = $data->where(function ($query) use ($search) {
                 $query->where('id_card', 'LIKE', '%' . $search . '%')
-                    ->orWhere('name', 'LIKE', '%' . $search . '%');
+                    ->orWhere('nama_lengkap', 'LIKE', '%' . $search . '%');
             });
         }
 
