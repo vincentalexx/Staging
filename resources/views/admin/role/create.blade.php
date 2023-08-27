@@ -8,7 +8,7 @@
         <role-form :action="'{{ url('admin/roles') }}'" v-cloak inline-template>
             <form class="form-horizontal form-create" method="post" @submit.prevent="onSubmit" :action="this.action" novalidate>
                 <div class="card-header">
-                    <i class="fa fa-plus"></i> {{ trans('admin.role.actions.edit', ['name' => $role->name]) }}
+                    <i class="fa fa-plus"></i> {{ trans('admin.role.actions.create') }}
                 </div>
 
                 <div class="card-body">
