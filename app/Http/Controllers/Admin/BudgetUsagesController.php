@@ -75,10 +75,11 @@ class BudgetUsagesController extends Controller
     {
         $this->authorize('admin.budget-usage.create');
 
-        $budgets = Budget::where('divisi', $divisi)->get();
+        $budgetUsage = new BudgetUsage();
 
         return view('admin.budget-usage.create', [
-            'budgets' => $budgets
+            'budgetUsage' => $budgetUsage,
+            'divisi' => $divisi,
         ]);
     }
 
@@ -94,15 +95,23 @@ class BudgetUsagesController extends Controller
         $sanitized = $request->getSanitized();
         $sanitized['created_by'] = Auth::user()->id;
         $sanitized['divisi'] = $divisi;
+        $sanitized['budget_id'] = $request->jenis_budget['budget_id'];
+        $sanitized['budget_detail_id'] = $request->jenis_budget['id'];
+        $sanitized['jenis_budget'] = $request->jenis_budget['nama_budget'];
 
         // Store the BudgetUsage
         $budgetUsage = BudgetUsage::create($sanitized);
+
+        $budgetDetail = BudgetDetail::find($request->jenis_budget['id']);
+        $budgetDetail->update([
+            'is_used' => true,
+        ]);
 
         if ($request->ajax()) {
             return ['redirect' => url('admin/budget-usages'), 'message' => trans('brackets/admin-ui::admin.operation.succeeded')];
         }
 
-        return redirect('admin/budget-usages');
+        return redirect('admin/budget-usages/'.$divisi);
     }
 
     /**
@@ -130,10 +139,9 @@ class BudgetUsagesController extends Controller
     {
         $this->authorize('admin.budget-usage.edit', $budgetUsage);
 
-        $budgets = Budget::where('divisi', $divisi)->get();
-
         return view('admin.budget-usage.edit', [
             'budgetUsage' => $budgetUsage,
+            'divisi' => $divisi,
         ]);
     }
 
@@ -150,6 +158,8 @@ class BudgetUsagesController extends Controller
         $sanitized = $request->getSanitized();
         $sanitized['updated_by'] = Auth::user()->id;
         $sanitized['divisi'] = $divisi;
+        $sanitized['budget_id'] = $request->jenis_budget['budget_id'];
+        $sanitized['budget_detail_id'] = $request->jenis_budget['id'];
 
         // Update changed values BudgetUsage
         $budgetUsage->update($sanitized);
@@ -161,7 +171,7 @@ class BudgetUsagesController extends Controller
             ];
         }
 
-        return redirect('admin/budget-usages');
+        return redirect('admin/budget-usages/'.$divisi);
     }
 
     /**

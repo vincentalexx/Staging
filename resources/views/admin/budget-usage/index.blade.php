@@ -41,8 +41,6 @@
                                 <thead>
                                     <tr>
                                         <th>{{ trans('admin.budget-usage.columns.no') }}</th>
-                                        <th is='sortable' :column="'budget_id'">{{ trans('admin.budget-usage.columns.budget_id') }}</th>
-                                        <th is='sortable' :column="'budget_detail_id'">{{ trans('admin.budget-usage.columns.budget_detail_id') }}</th>
                                         <th is='sortable' :column="'tanggal'">{{ trans('admin.budget-usage.columns.tanggal') }}</th>
                                         <th is='sortable' :column="'jenis_budget'">{{ trans('admin.budget-usage.columns.jenis_budget') }}</th>
                                         <th is='sortable' :column="'deskripsi'">{{ trans('admin.budget-usage.columns.deskripsi') }}</th>
@@ -56,8 +54,6 @@
                                 <tbody>
                                     <tr v-for="(item, index) in collection" :key="item.id" :class="bulkItems[item.id] ? 'bg-bulk' : ''">
                                         <td>@{{ pagination.state.from + index }}</td>
-                                        <td>@{{ item.budget_id }}</td>
-                                        <td>@{{ item.budget_detail_id }}</td>
                                         <td>@{{ item.tanggal | date }}</td>
                                         <td>@{{ item.jenis_budget }}</td>
                                         <td>@{{ item.deskripsi }}</td>

@@ -50,4 +50,12 @@
     </div>
 </div>
 
-
+<div class="row form-group align-items-center">
+    <label class="col-md-2 col-form-label text-md-right">Bon Transaksi</label>
+    <div class="col-md-8">
+        @include('brackets/admin-ui::admin.includes.media-uploader', [
+            'mediaCollection' => app(App\Models\BudgetUsage::class)->getMediaCollection('bon_transaksi'),
+            'media' => $budgetUsage->getThumbs200ForCollection('bon_transaksi'),
+        ])
+    </div>
+</div>

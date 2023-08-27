@@ -130,7 +130,7 @@ Route::middleware(['auth:' . config('admin-auth.defaults.guard'), 'admin'])->gro
             Route::get('/{divisi}',                                     'BudgetUsagesController@index')->name('index');
             Route::get('/create/{divisi}',                              'BudgetUsagesController@create')->name('create');
             Route::post('/{divisi}',                                    'BudgetUsagesController@store')->name('store');
-            Route::get('/{budgetUsage}/edit/{divisi}',                  'BudgetUsagesController@edit')->name('edit');
+            Route::get('/{budgetUsage}/{divisi}/edit',                  'BudgetUsagesController@edit')->name('edit');
             Route::post('/{budgetUsage}/{divisi}',                      'BudgetUsagesController@update')->name('update');
             Route::delete('/{budgetUsage}',                             'BudgetUsagesController@destroy')->name('destroy');
         });
