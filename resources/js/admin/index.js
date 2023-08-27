@@ -6,3 +6,5 @@ import './user';
 import './role';
 import './congregation';
 import './congregation-attendance';
+import './budget';
+import './budget-usage';

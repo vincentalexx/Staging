@@ -118,5 +118,53 @@ return [
         ],
     ],
 
+    'budget' => [
+        'title' => 'Budgets',
+
+        'actions' => [
+            'index' => 'Budgets',
+            'create' => 'New Budget',
+            'edit' => 'Edit :name',
+        ],
+
+        'columns' => [
+            'no' => 'No',
+            'id' => 'ID',
+            'divisi' => 'Divisi',
+            'sisa' => 'Sisa',
+            'total_reimburs' => 'Total Reimburs',
+            'kelebihan' => 'Kelebihan',
+            'nama_periode' => 'Nama periode',
+            'periode' => 'Periode',
+            'total_budget' => 'Total budget',
+        ],
+    ],
+
+    'budget-usage' => [
+        'title' => 'Budget Usages',
+        'title-smp' => 'SMP',
+        'title-sma' => 'SMA',
+        'title-pemuda' => 'Pemuda',
+
+        'actions' => [
+            'index' => 'Penggunaan Budget',
+            'create' => 'New Budget Usage',
+            'edit' => 'Edit :name',
+        ],
+
+        'columns' => [
+            'id' => 'ID',
+            'no' => 'No',
+            'budget_id' => 'Budget',
+            'budget_detail_id' => 'Budget detail',
+            'tanggal' => 'Tanggal',
+            'jenis_budget' => 'Jenis budget',
+            'deskripsi' => 'Deskripsi',
+            'jumlah_orang' => 'Jumlah orang',
+            'total' => 'Total',
+            'reimburs' => 'Reimburs',
+        ],
+    ],
+
     // Do not delete me :) I'm used for auto-generation
 ];

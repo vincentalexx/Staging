@@ -10,7 +10,9 @@
             <div class="card">
                 <div class="card-header">
                     <i class="fa fa-align-justify"></i> {{ trans('admin.role.actions.index') }}
-                    <a class="btn btn-primary btn-spinner btn-sm pull-right m-b-0" href="{{ url('admin/roles/create') }}" role="button"><i class="fa fa-plus"></i>&nbsp; {{ trans('admin.role.actions.create') }}</a>
+                    @can('admin.role.create')
+                        <a class="btn btn-primary btn-spinner btn-sm pull-right m-b-0" href="{{ url('admin/roles/create') }}" role="button"><i class="fa fa-plus"></i>&nbsp; {{ trans('admin.role.actions.create') }}</a>
+                    @endcan
                 </div>
                 <div class="card-body" v-cloak>
                     <form @submit.prevent="">
@@ -50,12 +52,16 @@
 
                                 <td>
                                     <div class="row no-gutters">
-                                        <div class="col-auto">
-                                            <a class="btn btn-sm btn-spinner btn-info color-white" :href="item.resource_url + '/edit'" title="{{ trans('brackets/admin-ui::admin.btn.edit') }}" role="button"><i class="fa fa-edit"></i> Edit</a>
-                                        </div>
-                                        <form class="col" @submit.prevent="deleteItem(item.resource_url)">
-                                            <button type="submit" class="btn btn-sm btn-danger color-white" title="{{ trans('brackets/admin-ui::admin.btn.delete') }}"><i class="fa fa-trash-o"></i> Delete</button>
-                                        </form>
+                                        @can('admin.role.edit')
+                                            <div class="col-auto">
+                                                <a class="btn btn-sm btn-spinner btn-info color-white" :href="item.resource_url + '/edit'" title="{{ trans('brackets/admin-ui::admin.btn.edit') }}" role="button"><i class="fa fa-edit"></i> Edit</a>
+                                            </div>
+                                        @endcan
+                                        @can('admin.role.delete')
+                                            <form class="col" @submit.prevent="deleteItem(item.resource_url)">
+                                                <button type="submit" class="btn btn-sm btn-danger color-white" title="{{ trans('brackets/admin-ui::admin.btn.delete') }}"><i class="fa fa-trash-o"></i> Delete</button>
+                                            </form>
+                                        @endcan
                                     </div>
                                 </td>
                             </tr>
@@ -75,7 +81,9 @@
                         <i class="icon-magnifier"></i>
                         <h3>{{ trans('brackets/admin-ui::admin.index.no_items') }}</h3>
                         <p>{{ trans('brackets/admin-ui::admin.index.try_changing_items') }}</p>
-                        <a class="btn btn-primary btn-spinner" href="{{ url('admin/roles/create') }}" role="button"><i class="fa fa-plus"></i>&nbsp; {{ trans('admin.role.actions.create') }}</a>
+                        @can('admin.role.create')
+                            <a class="btn btn-primary btn-spinner" href="{{ url('admin/roles/create') }}" role="button"><i class="fa fa-plus"></i>&nbsp; {{ trans('admin.role.actions.create') }}</a>
+                        @endcan
                     </div>
                 </div>
             </div>

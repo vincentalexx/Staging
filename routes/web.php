@@ -106,3 +106,33 @@ Route::middleware(['auth:' . config('admin-auth.defaults.guard'), 'admin'])->gro
         });
     });
 });
+
+/* Auto-generated admin routes */
+Route::middleware(['auth:' . config('admin-auth.defaults.guard'), 'admin'])->group(static function () {
+    Route::prefix('admin')->namespace('App\Http\Controllers\Admin')->name('admin/')->group(static function() {
+        Route::prefix('budgets')->name('budgets/')->group(static function() {
+            Route::get('/',                                             'BudgetsController@index')->name('index');
+            Route::get('/create',                                       'BudgetsController@create')->name('create');
+            Route::post('/',                                            'BudgetsController@store')->name('store');
+            Route::get('/{budget}/edit',                                'BudgetsController@edit')->name('edit');
+            Route::post('/bulk-destroy',                                'BudgetsController@bulkDestroy')->name('bulk-destroy');
+            Route::post('/{budget}',                                    'BudgetsController@update')->name('update');
+            Route::delete('/{budget}',                                  'BudgetsController@destroy')->name('destroy');
+        });
+    });
+});
+
+/* Auto-generated admin routes */
+Route::middleware(['auth:' . config('admin-auth.defaults.guard'), 'admin'])->group(static function () {
+    Route::prefix('admin')->namespace('App\Http\Controllers\Admin')->name('admin/')->group(static function() {
+        Route::prefix('budget-usages')->name('budget-usages/')->group(static function() {
+            Route::get('/get-budget-detail-by-tanggal/{divisi}',        'BudgetUsagesController@getBudgetDetailByTanggal');
+            Route::get('/{divisi}',                                     'BudgetUsagesController@index')->name('index');
+            Route::get('/create/{divisi}',                              'BudgetUsagesController@create')->name('create');
+            Route::post('/save/{divisi}',                               'BudgetUsagesController@store')->name('store');
+            Route::get('/{budgetUsage}/{divisi}/edit',                  'BudgetUsagesController@edit')->name('edit');
+            Route::post('/{budgetUsage}/{divisi}',                      'BudgetUsagesController@update')->name('update');
+            Route::delete('/{budgetUsage}/{divisi}',                    'BudgetUsagesController@destroy')->name('destroy');
+        });
+    });
+});
