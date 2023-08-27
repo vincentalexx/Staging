@@ -14,7 +14,9 @@
                 <div class="card">
                     <div class="card-header">
                         <i class="fa fa-align-justify"></i> {{ trans('admin.budget.actions.index') }}
-                        <a class="btn btn-primary btn-spinner btn-sm pull-right m-b-0" href="{{ url('admin/budgets/create') }}" role="button"><i class="fa fa-plus"></i>&nbsp; {{ trans('admin.budget.actions.create') }}</a>
+                        @can('admin.budget.create')
+                            <a class="btn btn-primary btn-spinner btn-sm pull-right m-b-0" href="{{ url('admin/budgets/create') }}" role="button"><i class="fa fa-plus"></i>&nbsp; {{ trans('admin.budget.actions.create') }}</a>
+                        @endcan
                     </div>
                     <div class="card-body" v-cloak>
                         <div class="card-block">
@@ -47,6 +49,9 @@
                                         <th is='sortable' :column="'nama_periode'">{{ trans('admin.budget.columns.nama_periode') }}</th>
                                         <th is='sortable' :column="'periode'">{{ trans('admin.budget.columns.periode') }}</th>
                                         <th is='sortable' :column="'total_budget'">{{ trans('admin.budget.columns.total_budget') }}</th>
+                                        <th>{{ trans('admin.budget.columns.total_reimburs') }}</th>
+                                        <th>{{ trans('admin.budget.columns.sisa') }}</th>
+                                        <th>{{ trans('admin.budget.columns.kelebihan') }}</th>
 
                                         <th></th>
                                     </tr>
@@ -69,15 +74,22 @@
                                         <td>@{{ item.nama_periode }}</td>
                                         <td>@{{ item.periode | date('MMMM YYYY') }}</td>
                                         <td>@{{ item.total_budget_awal.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") }}</td>
+                                        <td>@{{ item.total_reimburs.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") }}</td>
+                                        <td>@{{ item.sisa.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") }}</td>
+                                        <td>@{{ item.kelebihan.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") }}</td>
                                         
                                         <td>
                                             <div class="row no-gutters">
-                                                <div class="col-auto">
-                                                    <a class="btn btn-sm btn-spinner btn-info" :href="item.resource_url + '/edit'" title="{{ trans('brackets/admin-ui::admin.btn.edit') }}" role="button"><i class="fa fa-edit"></i></a>
-                                                </div>
-                                                <form class="col" @submit.prevent="deleteItem(item.resource_url)">
-                                                    <button type="submit" class="btn btn-sm btn-danger" title="{{ trans('brackets/admin-ui::admin.btn.delete') }}"><i class="fa fa-trash-o"></i></button>
-                                                </form>
+                                                @can('admin.budget.edit')
+                                                    <div class="col-auto">
+                                                        <a class="btn btn-sm btn-spinner btn-info" :href="item.resource_url + '/edit'" title="{{ trans('brackets/admin-ui::admin.btn.edit') }}" role="button"><i class="fa fa-edit"></i></a>
+                                                    </div>
+                                                @endcan
+                                                @can('admin.budget.delete')
+                                                    <form class="col" @submit.prevent="deleteItem(item.resource_url)">
+                                                        <button type="submit" class="btn btn-sm btn-danger" title="{{ trans('brackets/admin-ui::admin.btn.delete') }}"><i class="fa fa-trash-o"></i></button>
+                                                    </form>
+                                                @endcan
                                             </div>
                                         </td>
                                     </tr>
@@ -97,7 +109,9 @@
                                 <i class="icon-magnifier"></i>
                                 <h3>{{ trans('brackets/admin-ui::admin.index.no_items') }}</h3>
                                 <p>{{ trans('brackets/admin-ui::admin.index.try_changing_items') }}</p>
-                                <a class="btn btn-primary btn-spinner" href="{{ url('admin/budgets/create') }}" role="button"><i class="fa fa-plus"></i>&nbsp; {{ trans('admin.budget.actions.create') }}</a>
+                                @can('admin.budget.create')
+                                    <a class="btn btn-primary btn-spinner" href="{{ url('admin/budgets/create') }}" role="button"><i class="fa fa-plus"></i>&nbsp; {{ trans('admin.budget.actions.create') }}</a>
+                                @endcan
                             </div>
                         </div>
                     </div>

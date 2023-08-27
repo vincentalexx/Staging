@@ -11,9 +11,13 @@
                     <i class="fa fa-align-justify"></i> Absensi Jemaat
                     <!-- <a class="btn btn-primary btn-sm pull-right m-b-0 color-white" href="{{ url('admin/work-days/sync-fingerprint') }}" role="button" style="min-width: max-content"><i class="fa fa-500px"></i>&nbsp; {{ trans('admin.work-day.actions.sync-fingerprint') }}</a> -->
                     <!-- <button class="btn btn-primary btn-sm pull-right m-b-0 color-white" @click="importExcelPopup()" style="min-width: max-content"><i class="fa fa-file-excel-o"></i>&nbsp; {{ trans('admin.congregation-attendance.actions.export-attendance') }}</button> -->
-                    <a class="btn btn-primary btn-spinner btn-sm pull-right m-b-0 color-white" href="{{ url('admin/congregation-attendances/edit') }}" role="button"><i class="fa fa-edit"></i>&nbsp; {{ trans('admin.congregation-attendance.actions.edit') }}</a>
+                    @can('admin.congregation-attendance.edit-attendance')
+                        <a class="btn btn-primary btn-spinner btn-sm pull-right m-b-0 color-white" href="{{ url('admin/congregation-attendances/edit') }}" role="button"><i class="fa fa-edit"></i>&nbsp; {{ trans('admin.congregation-attendance.actions.edit') }}</a>
+                    @endcan
                     <span class="pull-right">&nbsp;</span>
-                    <a class="btn btn-primary btn-sm pull-right" :href="'/admin/congregation-attendances/export-excel/' + year + '/' + month" role="button"><i class="fa fa-file-excel-o"></i>&nbsp; {{ trans('admin.congregation-attendance.actions.export-excel') }}</a>
+                    @can('admin.congregation-attendance.export-excel')
+                        <a class="btn btn-primary btn-sm pull-right" :href="'/admin/congregation-attendances/export-excel/' + year + '/' + month" role="button"><i class="fa fa-file-excel-o"></i>&nbsp; {{ trans('admin.congregation-attendance.actions.export-excel') }}</a>
+                    @endcan
                 </div>
                 <div class="card-body" v-cloak style="overflow-y: auto">
                     <form @submit.prevent="">
@@ -91,20 +95,28 @@
                                             <td v-if="day.keterangan == 'Sakit'" style="background-color: yellow;">
                                                 Sakit
                                                 
-                                                <form @submit.prevent="deleteItem('/admin/congregation-attendances/delete/' + day.id)" class="pull-right">
-                                                    <button type="submit" class="btn btn-sm btn-danger" title="{{ trans('brackets/admin-ui::admin.btn.delete') }}"><i class="fa fa-trash-o"></i></button>
-                                                </form>
+                                                @can('admin.congregation-attendance.delete-detail')
+                                                    <form @submit.prevent="deleteItem('/admin/congregation-attendances/delete/' + day.id)" class="pull-right">
+                                                        <button type="submit" class="btn btn-sm btn-danger" title="{{ trans('brackets/admin-ui::admin.btn.delete') }}"><i class="fa fa-trash-o"></i></button>
+                                                    </form>
+                                                @endcan
                                                 <span class="pull-right">&nbsp;</span>
-                                                <a class="btn btn-primary btn-spinner btn-sm m-b-0 color-white pull-right" :href="'/admin/congregation-attendances/edit/' + item.id + '/' + day.tanggal" role="button"><i class="fa fa-edit"></i></a>
+                                                @can('admin.congregation-attendance.edit-detail')
+                                                    <a class="btn btn-primary btn-spinner btn-sm m-b-0 color-white pull-right" :href="'/admin/congregation-attendances/edit/' + item.id + '/' + day.tanggal" role="button"><i class="fa fa-edit"></i></a>
+                                                @endcan
                                             </td>
                                             <td v-else-if="day.keterangan == 'Izin'" style="background-color: orange;">
                                                 Izin
                                                 
-                                                <form @submit.prevent="deleteItem('/admin/congregation-attendances/delete/' + day.id)" class="pull-right">
-                                                    <button type="submit" class="btn btn-sm btn-danger" title="{{ trans('brackets/admin-ui::admin.btn.delete') }}"><i class="fa fa-trash-o"></i></button>
-                                                </form>
+                                                @can('admin.congregation-attendance.delete-detail')
+                                                    <form @submit.prevent="deleteItem('/admin/congregation-attendances/delete/' + day.id)" class="pull-right">
+                                                        <button type="submit" class="btn btn-sm btn-danger" title="{{ trans('brackets/admin-ui::admin.btn.delete') }}"><i class="fa fa-trash-o"></i></button>
+                                                    </form>
+                                                @endcan
                                                 <span class="pull-right">&nbsp;</span>
-                                                <a class="btn btn-primary btn-spinner btn-sm m-b-0 color-white pull-right" :href="'/admin/congregation-attendances/edit/' + item.id + '/' + day.tanggal" role="button"><i class="fa fa-edit"></i></a>
+                                                @can('admin.congregation-attendance.edit-detail')
+                                                    <a class="btn btn-primary btn-spinner btn-sm m-b-0 color-white pull-right" :href="'/admin/congregation-attendances/edit/' + item.id + '/' + day.tanggal" role="button"><i class="fa fa-edit"></i></a>
+                                                @endcan
                                             </td>
                                             <td v-else-if="day.keterangan == null" style="background-color: lightgreen;">
                                                 <a href="#" :id="'popover-target-'+day.id" style="color: black">
@@ -119,11 +131,15 @@
                                                     <b>Jam Masuk : </b> @{{ day.jam_datang }}
                                                 </b-popover>
 
-                                                <form @submit.prevent="deleteItem('/admin/congregation-attendances/delete/' + day.id)" class="pull-right">
-                                                    <button type="submit" class="btn btn-sm btn-danger" title="{{ trans('brackets/admin-ui::admin.btn.delete') }}"><i class="fa fa-trash-o"></i></button>
-                                                </form>
+                                                @can('admin.congregation-attendance.delete-detail')
+                                                    <form @submit.prevent="deleteItem('/admin/congregation-attendances/delete/' + day.id)" class="pull-right">
+                                                        <button type="submit" class="btn btn-sm btn-danger" title="{{ trans('brackets/admin-ui::admin.btn.delete') }}"><i class="fa fa-trash-o"></i></button>
+                                                    </form>
+                                                @endcan
                                                 <span class="pull-right">&nbsp;</span>
-                                                <a class="btn btn-primary btn-spinner btn-sm m-b-0 color-white pull-right" :href="'/admin/congregation-attendances/edit/' + item.id + '/' + day.tanggal" role="button"><i class="fa fa-edit"></i></a>
+                                                @can('admin.congregation-attendance.edit-detail')
+                                                    <a class="btn btn-primary btn-spinner btn-sm m-b-0 color-white pull-right" :href="'/admin/congregation-attendances/edit/' + item.id + '/' + day.tanggal" role="button"><i class="fa fa-edit"></i></a>
+                                                @endcan
                                             </td>
                                         </template>
                                     </template>

@@ -5,7 +5,7 @@ use Illuminate\Config\Repository;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Support\Facades\DB;
 
-class FillPermissionsForBudgetUsage extends Migration
+class FillPermissionsForCongregationAttendance extends Migration
 {
     /**
      * @var Repository|mixed
@@ -21,23 +21,19 @@ class FillPermissionsForBudgetUsage extends Migration
     protected $roles;
 
     /**
-     * FillPermissionsForBudgetUsage constructor.
+     * FillPermissionsForCongregation constructor.
      */
     public function __construct()
     {
         $this->guardName = config('admin-auth.defaults.guard');
 
         $permissions = collect([
-            'admin.budget-usage',
-            'admin.budget-usage.index',
-            'admin.budget-usage.index-smp',
-            'admin.budget-usage.index-sma',
-            'admin.budget-usage.index-pemuda',
-            'admin.budget-usage.create',
-            'admin.budget-usage.show',
-            'admin.budget-usage.edit',
-            'admin.budget-usage.delete',
-            'admin.budget-usage.bulk-delete',
+            'admin.congregation-attendance',
+            'admin.congregation-attendance.index',
+            'admin.congregation-attendance.edit-attendance',
+            'admin.congregation-attendance.export-excel',
+            'admin.congregation-attendance.edit-detail',
+            'admin.congregation-attendance.delete-detail',
         ]);
 
         //Add New permissions
