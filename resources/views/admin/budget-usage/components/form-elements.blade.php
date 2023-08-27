@@ -56,6 +56,7 @@
         @include('brackets/admin-ui::admin.includes.media-uploader', [
             'mediaCollection' => app(App\Models\BudgetUsage::class)->getMediaCollection('bon_transaksi'),
             'media' => $budgetUsage->getThumbs200ForCollection('bon_transaksi'),
+            'label' => 'Foto Bon Transaksi',
         ])
     </div>
 </div>

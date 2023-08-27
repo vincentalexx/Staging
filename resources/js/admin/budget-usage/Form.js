@@ -3,6 +3,7 @@ import AppForm from '../app-components/Form/AppForm';
 
 Vue.component('budget-usage-form', {
     mixins: [AppForm],
+    props: ["divisiData"],
     data: function() {
         return {
             form: {
@@ -26,11 +27,19 @@ Vue.component('budget-usage-form', {
     },
     methods: {
         getBudgetDetailByTanggal(val) {
+            let status = 'create'
+            let id = null
+            if (this.form.id != null) {
+                status = 'edit'
+                id = this.form.budget_detail_id
+            }
             axios({
-                url: "/admin/budget-usages/get-budget-detail-by-tanggal",
+                url: "/admin/budget-usages/get-budget-detail-by-tanggal/" + this.divisiData,
                 method: "GET",
                 params: {
-                    tanggal: val
+                    tanggal: val,
+                    status: status,
+                    id: id,
                 }
             }).then(response => {
                 this.budgetDetailList = response.data.budget_detail

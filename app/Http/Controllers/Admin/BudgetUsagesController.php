@@ -107,8 +107,18 @@ class BudgetUsagesController extends Controller
             'is_used' => true,
         ]);
 
+        $budget = Budget::find($request->jenis_budget['budget_id']);
+        $total_reimburs = $budget->total_reimburs + $request->reimburs;
+        $sisa = $budget->sisa - $request->reimburs;
+        $kelebihan = $budget->kelebihan + ($request->total - $request->reimburs);
+        $budget->update([
+            'total_reimburs' => $total_reimburs,
+            'sisa' => $sisa,
+            'kelebihan' => $kelebihan,
+        ]);
+
         if ($request->ajax()) {
-            return ['redirect' => url('admin/budget-usages'), 'message' => trans('brackets/admin-ui::admin.operation.succeeded')];
+            return ['redirect' => url('admin/budget-usages/'.$divisi), 'message' => trans('brackets/admin-ui::admin.operation.succeeded')];
         }
 
         return redirect('admin/budget-usages/'.$divisi);
@@ -160,13 +170,44 @@ class BudgetUsagesController extends Controller
         $sanitized['divisi'] = $divisi;
         $sanitized['budget_id'] = $request->jenis_budget['budget_id'];
         $sanitized['budget_detail_id'] = $request->jenis_budget['id'];
+        $sanitized['jenis_budget'] = $request->jenis_budget['nama_budget'];
+
+        $budgetDetail = BudgetDetail::find($budgetUsage->budget_detail_id);
+        $budgetDetail->update([
+            'is_used' => false,
+        ]);
+
+        $budget = Budget::find($request->jenis_budget['budget_id']);
+        $total_reimburs = $budget->total_reimburs - $budgetUsage->reimburs;
+        $sisa = $budget->sisa + $budgetUsage->reimburs;
+        $kelebihan = $budget->kelebihan - ($budgetUsage->total - $budgetUsage->reimburs);
+        $budget->update([
+            'total_reimburs' => $total_reimburs,
+            'sisa' => $sisa,
+            'kelebihan' => $kelebihan,
+        ]);
 
         // Update changed values BudgetUsage
         $budgetUsage->update($sanitized);
 
+        $budgetDetail = BudgetDetail::find($request->jenis_budget['id']);
+        $budgetDetail->update([
+            'is_used' => true,
+        ]);
+
+        $budget = Budget::find($request->jenis_budget['budget_id']);
+        $total_reimburs = $budget->total_reimburs + $request->reimburs;
+        $sisa = $budget->sisa - $request->reimburs;
+        $kelebihan = $budget->kelebihan + ($request->total - $request->reimburs);
+        $budget->update([
+            'total_reimburs' => $total_reimburs,
+            'sisa' => $sisa,
+            'kelebihan' => $kelebihan,
+        ]);
+
         if ($request->ajax()) {
             return [
-                'redirect' => url('admin/budget-usages'),
+                'redirect' => url('admin/budget-usages/'.$divisi),
                 'message' => trans('brackets/admin-ui::admin.operation.succeeded'),
             ];
         }
@@ -184,6 +225,19 @@ class BudgetUsagesController extends Controller
      */
     public function destroy(DestroyBudgetUsage $request, BudgetUsage $budgetUsage)
     {
+        $budgetDetail = BudgetDetail::find($budgetUsage->budget_detail_id);
+        $budgetDetail->update([
+            'is_used' => false,
+        ]);
+        $budget = Budget::find($budgetUsage->budget_id);
+        $total_reimburs = $budget->total_reimburs - $budgetUsage->reimburs;
+        $sisa = $budget->sisa + $budgetUsage->reimburs;
+        $kelebihan = $budget->kelebihan - ($budgetUsage->total - $budgetUsage->reimburs);
+        $budget->update([
+            'total_reimburs' => $total_reimburs,
+            'sisa' => $sisa,
+            'kelebihan' => $kelebihan,
+        ]);
         $budgetUsage->delete();
 
         if ($request->ajax()) {
@@ -218,15 +272,25 @@ class BudgetUsagesController extends Controller
         return response(['message' => trans('brackets/admin-ui::admin.operation.succeeded')]);
     }
     
-    public function getBudgetDetailByTanggal(Request $request) {
+    public function getBudgetDetailByTanggal(Request $request, $divisi) {
         $year = date('Y', strtotime($request->tanggal));
         $month = date('m', strtotime($request->tanggal));
 
         $budget = Budget::whereYear('periode', $year)
                     ->whereMonth('periode', $month)
+                    ->where('divisi', $divisi)
                     ->first();
 
-        $budgetDetail = BudgetDetail::where('budget_id', $budget->id)->get();
+        if ($request->status == 'create') {
+            $budgetDetail = BudgetDetail::where('budget_id', $budget->id)
+                                ->where('is_used', false)
+                                ->get();
+        } else {
+            $budgetDetail = BudgetDetail::where('budget_id', $budget->id)
+                                ->where('is_used', false)
+                                ->orWhere('id', $request->id)
+                                ->get();
+        }
 
         return response()->json([
             'budget_detail' => $budgetDetail

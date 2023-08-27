@@ -6,7 +6,8 @@
 <div class="container-xl">
     <div class="card">
         <budget-usage-form
-            :action="'{{ url('admin/budget-usages', $divisi) }}'"
+            :action="'{{ url('admin/budget-usages/save', $divisi) }}'"
+            :divisi-data="{{ json_encode($divisi) }}"
             v-cloak
             inline-template>
             <form class="form-horizontal form-create" method="post" @submit.prevent="onSubmit" :action="action" novalidate>

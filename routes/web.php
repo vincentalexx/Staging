@@ -126,13 +126,13 @@ Route::middleware(['auth:' . config('admin-auth.defaults.guard'), 'admin'])->gro
 Route::middleware(['auth:' . config('admin-auth.defaults.guard'), 'admin'])->group(static function () {
     Route::prefix('admin')->namespace('App\Http\Controllers\Admin')->name('admin/')->group(static function() {
         Route::prefix('budget-usages')->name('budget-usages/')->group(static function() {
-            Route::get('/get-budget-detail-by-tanggal',                 'BudgetUsagesController@getBudgetDetailByTanggal');
+            Route::get('/get-budget-detail-by-tanggal/{divisi}',        'BudgetUsagesController@getBudgetDetailByTanggal');
             Route::get('/{divisi}',                                     'BudgetUsagesController@index')->name('index');
             Route::get('/create/{divisi}',                              'BudgetUsagesController@create')->name('create');
-            Route::post('/{divisi}',                                    'BudgetUsagesController@store')->name('store');
+            Route::post('/save/{divisi}',                               'BudgetUsagesController@store')->name('store');
             Route::get('/{budgetUsage}/{divisi}/edit',                  'BudgetUsagesController@edit')->name('edit');
             Route::post('/{budgetUsage}/{divisi}',                      'BudgetUsagesController@update')->name('update');
-            Route::delete('/{budgetUsage}',                             'BudgetUsagesController@destroy')->name('destroy');
+            Route::delete('/{budgetUsage}/{divisi}',                    'BudgetUsagesController@destroy')->name('destroy');
         });
     });
 });

@@ -5,7 +5,7 @@
 @section('body')
     <budget-usage-listing
         :data="{{ $data->toJson() }}"
-        :url="'{{ url('admin/budget-usages') }}'"
+        :url="'{{ url('admin/budget-usages', $divisi) }}'"
         inline-template>
 
         <div class="row">

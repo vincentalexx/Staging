@@ -8,6 +8,7 @@
             <budget-usage-form
                 :action="'{{ $budgetUsage->resource_url }}'"
                 :data="{{ $budgetUsage->toJson() }}"
+                :divisi-data="{{ json_encode($divisi) }}"
                 v-cloak
                 inline-template>
                 <form class="form-horizontal form-edit" method="post" @submit.prevent="onSubmit" :action="action" novalidate>

@@ -83,7 +83,7 @@ class BudgetUsage extends Model implements HasMedia
     {
         $this->addMediaCollection('bon_transaksi')
             ->accepts('image/*')
-            ->maxNumberOfFiles(1);
+            ->maxNumberOfFiles(10);
     }
 
     /**
