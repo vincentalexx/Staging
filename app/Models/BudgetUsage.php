@@ -129,4 +129,12 @@ class BudgetUsage extends Model implements HasMedia
     {
         return url('/admin/budget-usages/'.$this->getKey().'/'.$this->divisi);
     }
+
+    public function budget() {
+        return $this->belongsTo(Budget::class);
+    }
+
+    public function budgetDetail() {
+        return $this->belongsTo(BudgetDetail::class);
+    }
 }

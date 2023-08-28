@@ -113,6 +113,8 @@ Route::middleware(['auth:' . config('admin-auth.defaults.guard'), 'admin'])->gro
         Route::prefix('budgets')->name('budgets/')->group(static function() {
             Route::get('/',                                             'BudgetsController@index')->name('index');
             Route::get('/create',                                       'BudgetsController@create')->name('create');
+            Route::get('/export-excel/{id}',                            'BudgetsController@exportExcel')->name('export-excel');
+            Route::get('/download-bon-zip/{id}',                        'BudgetsController@downloadBonZip')->name('download-bon-zip');
             Route::post('/',                                            'BudgetsController@store')->name('store');
             Route::get('/{budget}/edit',                                'BudgetsController@edit')->name('edit');
             Route::post('/bulk-destroy',                                'BudgetsController@bulkDestroy')->name('bulk-destroy');

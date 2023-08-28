@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Exports\BudgetExport;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Budget\BulkDestroyBudget;
 use App\Http\Requests\Admin\Budget\DestroyBudget;
@@ -10,17 +11,21 @@ use App\Http\Requests\Admin\Budget\StoreBudget;
 use App\Http\Requests\Admin\Budget\UpdateBudget;
 use App\Models\Budget;
 use App\Models\BudgetDetail;
+use App\Models\BudgetUsage;
 use Brackets\AdminListing\Facades\AdminListing;
 use Exception;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
+use Maatwebsite\Excel\Facades\Excel;
+use Spatie\MediaLibrary\Support\MediaStream;
 
 class BudgetsController extends Controller
 {
@@ -254,5 +259,111 @@ class BudgetsController extends Controller
         });
 
         return response(['message' => trans('brackets/admin-ui::admin.operation.succeeded')]);
+    }
+    
+    public function exportExcel($id)
+    {
+        $budget = Budget::find($id);
+        $month = date('m', strtotime($budget->periode));
+        $bulan = "";
+        switch ($month) {
+            case 1:
+                $bulan = "Januari";
+                break;
+            case 2:
+                $bulan = "Februari";
+                break;
+            case 3:
+                $bulan = "Maret";
+                break;
+            case 4:
+                $bulan = "April";
+                break;
+            case 5:
+                $bulan = "Mei";
+                break;
+            case 6:
+                $bulan = "Juni";
+                break;
+            case 7:
+                $bulan = "Juli";
+                break;
+            case 8:
+                $bulan = "Agustus";
+                break;
+            case 9:
+                $bulan = "September";
+                break;
+            case 10:
+                $bulan = "Oktober";
+                break;
+            case 11:
+                $bulan = "November";
+                break;
+            case 12:
+                $bulan = "Desember";
+                break;
+        }
+        $tahun = date('Y', strtotime($budget->periode));
+
+        return Excel::download(new BudgetExport($id), 'FORM KEUANGAN BULANAN ' . $budget->divisi . ' ' . $bulan . ' ' . $tahun . '.xlsx');
+    }
+    
+    public function downloadBonZip($id) {
+        $budget = Budget::find($id);
+        $budgetUsages = BudgetUsage::where('budget_id', $budget->id)->get();
+
+        $downloads = [];
+        foreach($budgetUsages as $budgetUsage) {
+            $bonData = $budgetUsage->getMedia('bon_transaksi');
+
+            foreach ($bonData as $bon) {
+                $downloads[] = $bon;
+            }
+        }
+
+        $month = date('m', strtotime($budget->periode));
+        $bulan = "";
+        switch ($month) {
+            case 1:
+                $bulan = "Januari";
+                break;
+            case 2:
+                $bulan = "Februari";
+                break;
+            case 3:
+                $bulan = "Maret";
+                break;
+            case 4:
+                $bulan = "April";
+                break;
+            case 5:
+                $bulan = "Mei";
+                break;
+            case 6:
+                $bulan = "Juni";
+                break;
+            case 7:
+                $bulan = "Juli";
+                break;
+            case 8:
+                $bulan = "Agustus";
+                break;
+            case 9:
+                $bulan = "September";
+                break;
+            case 10:
+                $bulan = "Oktober";
+                break;
+            case 11:
+                $bulan = "November";
+                break;
+            case 12:
+                $bulan = "Desember";
+                break;
+        }
+        $tahun = date('Y', strtotime($budget->periode));
+
+        return MediaStream::create('BON TRANSAKSI BULANAN ' . $budget->divisi . ' ' . $bulan . ' ' . $tahun . '.zip')->addMedia($downloads);
     }
 }

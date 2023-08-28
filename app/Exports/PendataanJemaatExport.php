@@ -8,9 +8,6 @@ use Maatwebsite\Excel\Concerns\FromView;
 
 class PendataanJemaatExport implements FromView
 {
-    /**
-    * @return \Illuminate\Support\Collection
-    */
     public function view(): View
     {
         $data = Congregation::orderBy('created_at', 'desc')->get();

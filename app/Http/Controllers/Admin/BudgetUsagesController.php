@@ -108,10 +108,12 @@ class BudgetUsagesController extends Controller
         ]);
 
         $budget = Budget::find($request->jenis_budget['budget_id']);
+        $total_budget_terpakai = $budget->total_budget_terpakai + $request->total;
         $total_reimburs = $budget->total_reimburs + $request->reimburs;
         $sisa = $budget->sisa - $request->reimburs;
         $kelebihan = $budget->kelebihan + ($request->total - $request->reimburs);
         $budget->update([
+            'total_budget_terpakai' => $total_budget_terpakai,
             'total_reimburs' => $total_reimburs,
             'sisa' => $sisa,
             'kelebihan' => $kelebihan,
@@ -178,10 +180,12 @@ class BudgetUsagesController extends Controller
         ]);
 
         $budget = Budget::find($request->jenis_budget['budget_id']);
+        $total_budget_terpakai = $budget->total_budget_terpakai - $budgetUsage->total;
         $total_reimburs = $budget->total_reimburs - $budgetUsage->reimburs;
         $sisa = $budget->sisa + $budgetUsage->reimburs;
         $kelebihan = $budget->kelebihan - ($budgetUsage->total - $budgetUsage->reimburs);
         $budget->update([
+            'total_budget_terpakai' => $total_budget_terpakai,
             'total_reimburs' => $total_reimburs,
             'sisa' => $sisa,
             'kelebihan' => $kelebihan,
@@ -195,11 +199,12 @@ class BudgetUsagesController extends Controller
             'is_used' => true,
         ]);
 
-        $budget = Budget::find($request->jenis_budget['budget_id']);
+        $total_budget_terpakai = $budget->total_budget_terpakai + $request->total;
         $total_reimburs = $budget->total_reimburs + $request->reimburs;
         $sisa = $budget->sisa - $request->reimburs;
         $kelebihan = $budget->kelebihan + ($request->total - $request->reimburs);
         $budget->update([
+            'total_budget_terpakai' => $total_budget_terpakai,
             'total_reimburs' => $total_reimburs,
             'sisa' => $sisa,
             'kelebihan' => $kelebihan,

@@ -32,7 +32,6 @@
                                     </div>
                                     <div class="col-sm-auto form-group ">
                                         <select class="form-control" v-model="pagination.state.per_page">
-                                            
                                             <option value="10">10</option>
                                             <option value="25">25</option>
                                             <option value="100">100</option>
@@ -55,17 +54,6 @@
 
                                         <th></th>
                                     </tr>
-                                    <tr v-show="(clickedBulkItemsCount > 0) || isClickedAll">
-                                        <td class="bg-bulk-info d-table-cell text-center" colspan="7">
-                                            <span class="align-middle font-weight-light text-dark">{{ trans('brackets/admin-ui::admin.listing.selected_items') }} @{{ clickedBulkItemsCount }}.  <a href="#" class="text-primary" @click="onBulkItemsClickedAll('/admin/budgets')" v-if="(clickedBulkItemsCount < pagination.state.total)"> <i class="fa" :class="bulkCheckingAllLoader ? 'fa-spinner' : ''"></i> {{ trans('brackets/admin-ui::admin.listing.check_all_items') }} @{{ pagination.state.total }}</a> <span class="text-primary">|</span> <a
-                                                        href="#" class="text-primary" @click="onBulkItemsClickedAllUncheck()">{{ trans('brackets/admin-ui::admin.listing.uncheck_all_items') }}</a>  </span>
-
-                                            <span class="pull-right pr-2">
-                                                <button class="btn btn-sm btn-danger pr-3 pl-3" @click="bulkDelete('/admin/budgets/bulk-destroy')">{{ trans('brackets/admin-ui::admin.btn.delete') }}</button>
-                                            </span>
-
-                                        </td>
-                                    </tr>
                                 </thead>
                                 <tbody>
                                     <tr v-for="(item, index) in collection" :key="item.id" :class="bulkItems[item.id] ? 'bg-bulk' : ''">
@@ -80,6 +68,16 @@
                                         
                                         <td>
                                             <div class="row no-gutters">
+                                                @can('admin.budget.download-bon-zip')
+                                                    <div class="col-auto">
+                                                        <a class="btn btn-sm btn-spinner btn-success" :href="'/admin/budgets/download-bon-zip/' + item.id" title="Download Bon" role="button"><i class="fa fa-download"></i></a>
+                                                    </div>
+                                                @endcan
+                                                @can('admin.budget.export-excel')
+                                                    <div class="col-auto">
+                                                        <a class="btn btn-sm btn-spinner btn-success" :href="'/admin/budgets/export-excel/' + item.id" title="Export Excel" role="button"><i class="fa fa-file-excel-o"></i></a>
+                                                    </div>
+                                                @endcan
                                                 @can('admin.budget.edit')
                                                     <div class="col-auto">
                                                         <a class="btn btn-sm btn-spinner btn-info" :href="item.resource_url + '/edit'" title="{{ trans('brackets/admin-ui::admin.btn.edit') }}" role="button"><i class="fa fa-edit"></i></a>
