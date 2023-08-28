@@ -22,7 +22,10 @@ class FileUploadController extends BaseController
     public function upload(Request $request): JsonResponse
     {
         if ($request->hasFile('file')) {
-            $path = $request->file('file')->store('', ['disk' => 'uploads']);
+            $file = $request->file('file');
+            $originalName = $file->getClientOriginalName();
+
+            $path = $request->file('file')->storeAs('', $originalName, ['disk' => 'uploads']);
 
             return response()->json(['path' => $path], 200);
         }
