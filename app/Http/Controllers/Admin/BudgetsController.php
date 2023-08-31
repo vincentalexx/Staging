@@ -13,6 +13,7 @@ use App\Models\Budget;
 use App\Models\BudgetDetail;
 use App\Models\BudgetUsage;
 use Brackets\AdminListing\Facades\AdminListing;
+use Carbon\Carbon;
 use Exception;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Contracts\Routing\ResponseFactory;
@@ -259,6 +260,34 @@ class BudgetsController extends Controller
         });
 
         return response(['message' => trans('brackets/admin-ui::admin.operation.succeeded')]);
+    }
+
+    public function duplicate(Request $request, Budget $budget) {
+        $newBudget = $budget->replicate();
+        $newBudget->nama_periode = $budget->nama_periode . " - Copy";
+        $newBudget->created_at = Carbon::now();
+        $newBudget->updated_at = null;
+        $newBudget->total_budget_terpakai = 0;
+        $newBudget->total_reimburs = 0;
+        $newBudget->sisa = $budget->total_budget_awal;
+        $newBudget->kelebihan = 0;
+        $newBudget->save();
+
+        $budgetDetails = BudgetDetail::where('budget_id', $budget->id)->get();
+        foreach ($budgetDetails as $budgetDetail) {
+            $newBudgetDetail = $budgetDetail->replicate();
+            $newBudgetDetail->created_at = Carbon::now();
+            $newBudgetDetail->updated_at = null;
+            $newBudgetDetail->budget_id = $newBudget->id;
+            $newBudgetDetail->is_used = false;
+            $newBudgetDetail->save();
+        }
+
+        if ($request->ajax()) {
+            return response(['message' => trans('brackets/admin-ui::admin.operation.succeeded')]);
+        }
+
+        return redirect()->back();
     }
     
     public function exportExcel($id)

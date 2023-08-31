@@ -117,6 +117,7 @@ Route::middleware(['auth:' . config('admin-auth.defaults.guard'), 'admin'])->gro
             Route::get('/download-bon-zip/{id}',                        'BudgetsController@downloadBonZip')->name('download-bon-zip');
             Route::post('/',                                            'BudgetsController@store')->name('store');
             Route::get('/{budget}/edit',                                'BudgetsController@edit')->name('edit');
+            Route::post('/{budget}/duplicate',                          'BudgetsController@duplicate')->name('duplicate');
             Route::post('/bulk-destroy',                                'BudgetsController@bulkDestroy')->name('bulk-destroy');
             Route::post('/{budget}',                                    'BudgetsController@update')->name('update');
             Route::delete('/{budget}',                                  'BudgetsController@destroy')->name('destroy');
