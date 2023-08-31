@@ -28,6 +28,7 @@ class FillAddSomePermissionsForBudget extends Migration
         $this->guardName = config('admin-auth.defaults.guard');
 
         $permissions = collect([
+            'admin.budget.duplicate',
             'admin.budget.export-excel',
             'admin.budget.download-bon-zip',
         ]);

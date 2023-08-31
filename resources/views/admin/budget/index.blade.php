@@ -78,6 +78,11 @@
                                                         <a class="btn btn-sm btn-spinner btn-success" :href="'/admin/budgets/export-excel/' + item.id" title="Export Excel" role="button"><i class="fa fa-file-excel-o"></i></a>
                                                     </div>
                                                 @endcan
+                                                @can('admin.budget.duplicate')
+                                                    <form class="col" @submit.prevent="duplicateItem(item.resource_url + '/duplicate')">
+                                                        <button type="submit" class="btn btn-sm  btn-info" title="Duplicate"><i class="fa fa-copy"></i></button>
+                                                    </form>
+                                                @endcan
                                                 @can('admin.budget.edit')
                                                     <div class="col-auto">
                                                         <a class="btn btn-sm btn-spinner btn-info" :href="item.resource_url + '/edit'" title="{{ trans('brackets/admin-ui::admin.btn.edit') }}" role="button"><i class="fa fa-edit"></i></a>
