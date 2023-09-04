@@ -139,3 +139,36 @@ Route::middleware(['auth:' . config('admin-auth.defaults.guard'), 'admin'])->gro
         });
     });
 });
+
+/* Auto-generated admin routes */
+Route::middleware(['auth:' . config('admin-auth.defaults.guard'), 'admin'])->group(static function () {
+    Route::prefix('admin')->namespace('App\Http\Controllers\Admin')->name('admin/')->group(static function() {
+        Route::prefix('discipleships')->name('discipleships/')->group(static function() {
+            Route::get('/',                                             'DiscipleshipsController@index')->name('index');
+            Route::get('/create',                                       'DiscipleshipsController@create')->name('create');
+            Route::post('/',                                            'DiscipleshipsController@store')->name('store');
+            Route::get('/{discipleship}/edit',                          'DiscipleshipsController@edit')->name('edit');
+            Route::post('/bulk-destroy',                                'DiscipleshipsController@bulkDestroy')->name('bulk-destroy');
+            Route::post('/{discipleship}',                              'DiscipleshipsController@update')->name('update');
+            Route::delete('/{discipleship}',                            'DiscipleshipsController@destroy')->name('destroy');
+        });
+    });
+});
+
+/* Auto-generated admin routes */
+Route::middleware(['auth:' . config('admin-auth.defaults.guard'), 'admin'])->group(static function () {
+    Route::prefix('admin')->namespace('App\Http\Controllers\Admin')->name('admin/')->group(static function() {
+        Route::prefix('discipleship-details')->name('discipleship-details/')->group(static function() {
+            Route::get('/get-congregation-list',                        'DiscipleshipDetailsController@getCongregationList');
+            Route::get('/get-discipleship-list',                        'DiscipleshipDetailsController@getDiscipleshipList');
+            Route::get('/get-total-hadir',                              'DiscipleshipDetailsController@getTotalHadir');
+            Route::get('/{divisi}',                                     'DiscipleshipDetailsController@index')->name('index');
+            Route::get('/create/{divisi}',                              'DiscipleshipDetailsController@create')->name('create');
+            Route::post('/{divisi}',                                    'DiscipleshipDetailsController@store')->name('store');
+            Route::get('/{discipleshipDetail}/edit',                    'DiscipleshipDetailsController@edit')->name('edit');
+            Route::post('/bulk-destroy',                                'DiscipleshipDetailsController@bulkDestroy')->name('bulk-destroy');
+            Route::post('/{discipleshipDetail}',                        'DiscipleshipDetailsController@update')->name('update');
+            Route::delete('/{discipleshipDetail}',                      'DiscipleshipDetailsController@destroy')->name('destroy');
+        });
+    });
+});

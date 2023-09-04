@@ -22,6 +22,20 @@
             @can('admin.budget-usage.index-pemuda')
                 <li class="nav-item"><a class="nav-link" href="{{ url('admin/budget-usages/Pemuda') }}"><i class="nav-icon icon-flag"></i> {{ trans('admin.budget-usage.title-pemuda') }}</a></li>
             @endcan
+
+            <li class="nav-title">Pembinaan</li>
+            @can('admin.discipleship.index')
+                <li class="nav-item"><a class="nav-link" href="{{ url('admin/discipleships') }}"><i class="nav-icon icon-clock"></i> {{ trans('admin.discipleship.title') }}</a></li>
+            @endcan
+            @can('admin.discipleship-detail.index-smp')
+                <li class="nav-item"><a class="nav-link" href="{{ url('admin/discipleship-details/SMP') }}"><i class="nav-icon icon-drop"></i> {{ trans('admin.discipleship-detail.title-smp') }}</a></li>
+            @endcan
+            @can('admin.discipleship-detail.index-sma')
+                <li class="nav-item"><a class="nav-link" href="{{ url('admin/discipleship-details/SMA') }}"><i class="nav-icon icon-drop"></i> {{ trans('admin.discipleship-detail.title-sma') }}</a></li>
+            @endcan
+            @can('admin.discipleship-detail.index-pemuda')
+                <li class="nav-item"><a class="nav-link" href="{{ url('admin/discipleship-details/Pemuda') }}"><i class="nav-icon icon-drop"></i> {{ trans('admin.discipleship-detail.title-pemuda') }}</a></li>
+            @endcan
            {{-- Do not delete me :) I'm used for auto-generation menu items --}}
 
             <li class="nav-title">{{ trans('brackets/admin-ui::admin.sidebar.settings') }}</li>

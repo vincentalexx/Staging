@@ -8,3 +8,5 @@ import './congregation';
 import './congregation-attendance';
 import './budget';
 import './budget-usage';
+import './discipleship';
+import './discipleship-detail';

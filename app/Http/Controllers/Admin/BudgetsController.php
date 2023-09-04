@@ -265,6 +265,7 @@ class BudgetsController extends Controller
     public function duplicate(Request $request, Budget $budget) {
         $newBudget = $budget->replicate();
         $newBudget->nama_periode = $budget->nama_periode . " - Copy";
+        $newBudget->created_by = Auth::user()->id;
         $newBudget->created_at = Carbon::now();
         $newBudget->updated_at = null;
         $newBudget->total_budget_terpakai = 0;
