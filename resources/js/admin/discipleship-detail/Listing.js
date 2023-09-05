@@ -21,6 +21,7 @@ Vue.component('discipleship-detail-listing', {
             judulPembinaan: [],
             totalHadir: [],
             discipleshipList: [],
+            selectedDiscipleshipId: '',
             selectedDiscipleship: '',
 
             datePickerConfig: {
@@ -72,9 +73,40 @@ Vue.component('discipleship-detail-listing', {
 
                 let dt = moment(myDate)
                 let day = 0
-                // if ()
 
-                if (dt.format("d") == 0) {
+                if (this.discipleshipList.length > 0) {
+                    this.discipleshipList.map(discipleship => {
+                        if (discipleship.id == this.selectedDiscipleshipId) {
+                            this.selectedDiscipleship = discipleship
+                        }
+                    })
+                }
+                
+                switch(this.selectedDiscipleship.hari) {
+                    case "Minggu":
+                        day = 0
+                        break;
+                    case "Senin":
+                        day = 1
+                        break;
+                    case "Selasa":
+                        day = 2
+                        break;
+                    case "Rabu":
+                        day = 3
+                        break;
+                    case "Kamis":
+                        day = 4
+                        break;
+                    case "Jumat":
+                        day = 5
+                        break;
+                    case "Sabtu":
+                        day = 6
+                        break;
+                }
+
+                if (dt.format("d") == day) {
                     days.push(myDate)
                 }
             }
@@ -122,7 +154,7 @@ Vue.component('discipleship-detail-listing', {
 
             this.nameOfMonth = nameOfMonth
             this.daysInPeriod = days
-            this.filter("discipleship", this.selectedDiscipleship)
+            this.filter("discipleship", this.selectedDiscipleshipId)
             this.filter("month", this.month)
             this.filter("year", this.year)
         },
@@ -132,12 +164,13 @@ Vue.component('discipleship-detail-listing', {
                 url: "/admin/discipleship-details/get-discipleship-list",
                 params: {
                     divisi: this.divisiData,
-                    discipleship: this.selectedDiscipleship,
+                    discipleship: this.selectedDiscipleshipId,
                 }
             }).then(response => {
                 this.discipleshipList = response.data
-                if (this.selectedDiscipleship == '') {
-                    this.selectedDiscipleship = response.data[0].id
+                if (this.selectedDiscipleshipId == '') {
+                    this.selectedDiscipleshipId = response.data[0].id
+                    this.selectedDiscipleship = response.data[0]
                 }
                 this.getCalendarData()
             })
@@ -149,7 +182,7 @@ Vue.component('discipleship-detail-listing', {
                 params: {
                     year: year,
                     month: month,
-                    discipleship: this.selectedDiscipleship,
+                    discipleship: this.selectedDiscipleshipId,
                 }
             }).then(response => {
                 this.totalHadir = response.data.totalHadir
@@ -267,7 +300,7 @@ Vue.component('discipleship-detail-listing', {
         work_day_type(val) {
             this.getCalendarData()
         },
-        selectedDiscipleship(val) {
+        selectedDiscipleshipId(val) {
             this.getTotalHadir(this.year, this.month)
             this.getDiscipleshipList()
         }

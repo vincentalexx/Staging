@@ -339,20 +339,47 @@ class DiscipleshipDetailsController extends Controller
     }
 
     public function getTotalHadir(Request $request) {
+        $discipleship = Discipleship::find($request->discipleship);
+
         $discipleshipDetails = DiscipleshipDetail::whereYear('tanggal', $request->year)
                                 ->whereMonth('tanggal', $request->month)
                                 ->where('discipleship_id', $request->discipleship)
                                 ->get();
+
+        $hari = 0;
+        switch ($discipleship->hari) {
+            case "Minggu":
+                $hari = 0;
+                break;
+            case "Senin":
+                $hari = 1;
+                break;
+            case "Selasa":
+                $hari = 2;
+                break;
+            case "Rabu":
+                $hari = 3;
+                break;
+            case "Kamis":
+                $hari = 4;
+                break;
+            case "Jumat":
+                $hari = 5;
+                break;
+            case "Sabtu":
+                $hari = 6;
+                break;
+        }
 
         $attendances = [];
         $judulPembinaan = [];
         $selectedMonth = strtotime($request->year . '-' . $request->month . '-01');
         $dateOfMonth = date('t', $selectedMonth);
         for ($i = 1; $i <= $dateOfMonth; $i++) {
-            if (date('w', strtotime($request->year . '-' . $request->month . '-' . $i)) == 0) {
+            if (date('w', strtotime($request->year . '-' . $request->month . '-' . $i)) == $hari) {
                 $daysInPeriod[] = $request->year . '-' . $request->month . '-' . $i;
                 $attendances[strtotime($request->year . '-' . $request->month . '-' . $i)] = 0;
-                $judulPembinaan[strtotime($request->year . '-' . $request->month . '-' . $i)] = "-";
+                $judulPembinaan[strtotime($request->year . '-' . $request->month . '-' . $i)] = '';
             }
         }
 
