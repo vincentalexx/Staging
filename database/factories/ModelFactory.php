@@ -65,3 +65,31 @@ $factory->define(App\Models\BudgetUsage::class, static function (Faker\Generator
         
     ];
 });
+/** @var  \Illuminate\Database\Eloquent\Factory $factory */
+$factory->define(App\Models\Discipleship::class, static function (Faker\Generator $faker) {
+    return [
+        'created_at' => $faker->dateTime,
+        'divisi' => $faker->sentence,
+        'nama_pembinaan' => $faker->sentence,
+        'updated_at' => $faker->dateTime,
+        'user_id' => $faker->sentence,
+        
+        
+    ];
+});
+/** @var  \Illuminate\Database\Eloquent\Factory $factory */
+$factory->define(App\Models\DiscipleshipDetail::class, static function (Faker\Generator $faker) {
+    return [
+        'created_at' => $faker->dateTime,
+        'created_by' => $faker->sentence,
+        'deleted_at' => null,
+        'discipleship_id' => $faker->sentence,
+        'divisi' => $faker->sentence,
+        'judul' => $faker->sentence,
+        'tanggal' => $faker->date(),
+        'updated_at' => $faker->dateTime,
+        'updated_by' => $faker->sentence,
+        
+        
+    ];
+});

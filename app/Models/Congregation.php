@@ -44,4 +44,9 @@ class Congregation extends Model
     {
         return $this->hasMany(CongregationAttendance::class);
     }
+    
+    public function discipleshipDetail()
+    {
+        return $this->belongsToMany(DiscipleshipDetail::class);
+    }
 }

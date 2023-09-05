@@ -166,5 +166,51 @@ return [
         ],
     ],
 
+    'discipleship' => [
+        'title' => 'Pembinaan',
+
+        'actions' => [
+            'index' => 'Pembinaan',
+            'create' => 'New Discipleship',
+            'edit' => 'Edit :name',
+        ],
+
+        'columns' => [
+            'id' => 'ID',
+            'no' => 'No',
+            'divisi' => 'Divisi',
+            'hari' => 'Hari',
+            'nama_pembinaan' => 'Nama Pembinaan',
+            'user_id' => 'User',
+        ],
+    ],
+
+    'discipleship-detail' => [
+        'title' => 'Absensi Pembinaan',
+        'title-smp' => 'SMP',
+        'title-sma' => 'SMA',
+        'title-pemuda' => 'Pemuda',
+
+        'actions' => [
+            'index' => 'Absensi Pembinaan',
+            'create' => 'Edit Pembinaan',
+            'export-excel' => 'Export Excel',
+            'edit' => 'Edit :name',
+        ],
+
+        'columns' => [
+            'id' => 'ID',
+            'no' => 'No',
+            'congregation' => 'Jemaat',
+            'discipleship' => 'Pembinaan',
+            'divisi' => 'Divisi',
+            'judul' => 'Judul',
+            'keterangan' => 'Keterangan',
+            'tanggal' => 'Tanggal',
+            'updated_by' => 'Updated by',
+            'alasan' => 'Alasan',
+        ],
+    ],
+
     // Do not delete me :) I'm used for auto-generation
 ];

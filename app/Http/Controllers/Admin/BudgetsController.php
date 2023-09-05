@@ -173,6 +173,7 @@ class BudgetsController extends Controller
         $sanitized['updated_by'] = Auth::user()->id;
 
         $total_budget = 0;
+        $penambahan_budget = 0;
         foreach ($request->budget_details as $budgetDetail) {
             $total = $budgetDetail['jumlah_orang_maksimum'] * $budgetDetail['budget'];
 
@@ -185,14 +186,21 @@ class BudgetsController extends Controller
                     'total' => $total,
                     'is_used' => false,
                 ]);
+                
+                $penambahan_budget += $total;
             } else {
                 $budget_detail = BudgetDetail::find($budgetDetail['id']);
+
+                $sisa = $total - $budget_detail->total;
+
                 $budget_detail->update([
                     'nama_budget' => $budgetDetail['nama_budget'],
                     'jumlah_orang_maksimum' => $budgetDetail['jumlah_orang_maksimum'],
                     'budget' => $budgetDetail['budget'],
                     'total' => $total,
                 ]);
+
+                $penambahan_budget += $sisa;
             }
 
             $total_budget += $total;
@@ -201,12 +209,14 @@ class BudgetsController extends Controller
         if ($request->removed_budget_details != null) {
             foreach ($request->removed_budget_details as $removed) {
                 $budget_detail = BudgetDetail::find($removed['id']);
+                $penambahan_budget -= $budget_detail->total;
                 $budget_detail->delete();
             }
         }
 
         // Update changed values Budget
         $sanitized['total_budget_awal'] = $total_budget;
+        $sanitized['sisa'] = $budget->sisa + $penambahan_budget;
         $budget->update($sanitized);
 
 
@@ -265,6 +275,7 @@ class BudgetsController extends Controller
     public function duplicate(Request $request, Budget $budget) {
         $newBudget = $budget->replicate();
         $newBudget->nama_periode = $budget->nama_periode . " - Copy";
+        $newBudget->created_by = Auth::user()->id;
         $newBudget->created_at = Carbon::now();
         $newBudget->updated_at = null;
         $newBudget->total_budget_terpakai = 0;

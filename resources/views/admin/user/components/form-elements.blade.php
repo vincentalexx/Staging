@@ -35,7 +35,7 @@
 
             <div class="form-group row align-items-center" :class="{'has-danger': errors.has('role_names'), 'has-success': this.fields.role_names && this.fields.role_names.valid }">
                 <label for="role_names" class="col-form-label text-md-right" :class="isFormLocalized ? 'col-md-4' : 'col-md-2'">
-                    {{ trans('admin.user.columns.roles') }} <span class="required-input">*</span>
+                    {{ trans('admin.user.columns.roles') }}
                 </label>
                 <div :class="isFormLocalized ? 'col-md-4' : 'col-md-9 col-xl-8'">
                     <multiselect name="role_names" v-model="form.role_names" placeholder="{{ trans('brackets/admin-ui::admin.forms.select_options') }}" :options="{{ $roles }}" :multiple="false" open-direction="bottom" v-validate="'required'" :class="{'form-control-danger': errors.has('role_names'), 'form-control-success': this.fields.role_names && this.fields.role_names.valid}"></multiselect>
@@ -73,7 +73,7 @@
 
     <div class="form-group row align-items-center" :class="{'has-danger': errors.has('role_names'), 'has-success': this.fields.role_names && this.fields.role_names.valid }">
         <label for="role_names" class="col-form-label text-md-right" :class="isFormLocalized ? 'col-md-4' : 'col-md-2'">
-            {{ trans('admin.user.columns.roles') }} <span class="required-input">*</span>
+            {{ trans('admin.user.columns.roles') }}
         </label>
         <div :class="isFormLocalized ? 'col-md-4' : 'col-md-9 col-xl-8'">
             <multiselect name="role_names" v-model="form.role_names" placeholder="{{ trans('brackets/admin-ui::admin.forms.select_options') }}" :options="{{ $roles }}" :multiple="false" open-direction="bottom" v-validate="'required'" :class="{'form-control-danger': errors.has('role_names'), 'form-control-success': this.fields.role_names && this.fields.role_names.valid}"></multiselect>
