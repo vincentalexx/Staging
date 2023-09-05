@@ -39,6 +39,7 @@ class FillPermissionsForDiscipleshipDetail extends Migration
             'admin.discipleship-detail.edit-detail',
             'admin.discipleship-detail.export-excel',
             'admin.discipleship-detail.delete',
+            'admin.discipleship-detail.delete-detail',
             'admin.discipleship-detail.bulk-delete',
         ]);
 

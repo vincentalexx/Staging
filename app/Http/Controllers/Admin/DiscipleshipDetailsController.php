@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Exports\AbsensiPembinaanExport;
+use App\Exports\Sheets\AbsensiPembinaanSheet;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\DiscipleshipDetail\BulkDestroyDiscipleshipDetail;
 use App\Http\Requests\Admin\DiscipleshipDetail\DestroyDiscipleshipDetail;
@@ -25,6 +27,7 @@ use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
+use Maatwebsite\Excel\Facades\Excel;
 
 class DiscipleshipDetailsController extends Controller
 {
@@ -265,6 +268,7 @@ class DiscipleshipDetailsController extends Controller
     public function destroy(DestroyDiscipleshipDetail $request, DiscipleshipDetail $discipleshipDetail)
     {
         $discipleshipDetail->delete();
+        $discipleshipDetail->congregation()->detach();
 
         if ($request->ajax()) {
             return response(['message' => trans('brackets/admin-ui::admin.operation.succeeded')]);
@@ -396,5 +400,50 @@ class DiscipleshipDetailsController extends Controller
             'totalHadir' => $attendances,
             'judulPembinaan' => $judulPembinaan,
         ]);
+    }
+
+    public function exportExcel(Request $request, $year, $month, $divisi)
+    {
+        $bulan = "";
+        switch ($month) {
+            case 1:
+                $bulan = "Januari";
+                break;
+            case 2:
+                $bulan = "Februari";
+                break;
+            case 3:
+                $bulan = "Maret";
+                break;
+            case 4:
+                $bulan = "April";
+                break;
+            case 5:
+                $bulan = "Mei";
+                break;
+            case 6:
+                $bulan = "Juni";
+                break;
+            case 7:
+                $bulan = "Juli";
+                break;
+            case 8:
+                $bulan = "Agustus";
+                break;
+            case 9:
+                $bulan = "September";
+                break;
+            case 10:
+                $bulan = "Oktober";
+                break;
+            case 11:
+                $bulan = "November";
+                break;
+            case 12:
+                $bulan = "Desember";
+                break;
+        }
+
+        return Excel::download(new AbsensiPembinaanExport($year, $month, $bulan, $divisi), 'Absensi Pembinaan ' . $divisi . ' Bulan ' . $bulan . ' ' . $year . '.xlsx');
     }
 }

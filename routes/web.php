@@ -162,6 +162,7 @@ Route::middleware(['auth:' . config('admin-auth.defaults.guard'), 'admin'])->gro
             Route::get('/get-congregation-list',                        'DiscipleshipDetailsController@getCongregationList');
             Route::get('/get-discipleship-list',                        'DiscipleshipDetailsController@getDiscipleshipList');
             Route::get('/get-total-hadir',                              'DiscipleshipDetailsController@getTotalHadir');
+            Route::get('/export-excel/{year}/{month}/{divisi}',         'DiscipleshipDetailsController@exportExcel')->name('export-excel');
             Route::get('/{divisi}',                                     'DiscipleshipDetailsController@index')->name('index');
             Route::get('/create/{divisi}',                              'DiscipleshipDetailsController@create')->name('create');
             Route::post('/{divisi}',                                    'DiscipleshipDetailsController@store')->name('store');

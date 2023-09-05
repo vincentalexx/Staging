@@ -16,7 +16,7 @@
                     @endcan
                     <span class="pull-right">&nbsp;</span>
                     @can('admin.discipleship-detail.export-excel')
-                        <a class="btn btn-primary btn-sm pull-right" :href="'/admin/discipleship-details/export-excel/' + year + '/' + month" role="button"><i class="fa fa-file-excel-o"></i>&nbsp; {{ trans('admin.discipleship-detail.actions.export-excel') }}</a>
+                        <a class="btn btn-primary btn-sm pull-right" :href="'/admin/discipleship-details/export-excel/' + year + '/' + month + '/' + divisiData" role="button"><i class="fa fa-file-excel-o"></i>&nbsp; {{ trans('admin.discipleship-detail.actions.export-excel') }}</a>
                     @endcan
                 </div>
                 <div class="card-body" v-cloak style="overflow-y: auto">
@@ -77,7 +77,15 @@
                             <tr>
                                 <th></th>
                                 <th>Judul</th>
-                                <th v-for="(judul, j) in judulPembinaan">@{{ judul.judul }}</th>
+                                <th v-for="(judul, j) in judulPembinaan">
+                                    @{{ judul.judul }}
+
+                                    @can('admin.discipleship-detail.delete')
+                                        <form @submit.prevent="deleteItem('/admin/discipleship-details/' + judul.id)" class="pull-right">
+                                            <button type="submit" class="btn btn-sm btn-danger" title="{{ trans('brackets/admin-ui::admin.btn.delete') }}"><i class="fa fa-trash-o"></i></button>
+                                        </form>
+                                    @endcan
+                                </th>
                             </tr>
                             <tr>
                                 <th></th>
@@ -101,7 +109,7 @@
                                                 Sakit
                                                 
                                                 <template v-if="judulPembinaan[new Date(daysInPeriod[d]).getTime()/1000] != null">
-                                                    @can('admin.discipleship-detail.delete')
+                                                    @can('admin.discipleship-detail.delete-detail')
                                                         <form @submit.prevent="deleteItem('/admin/discipleship-details/delete/' + day.id + '/detail')" class="pull-right">
                                                             <button type="submit" class="btn btn-sm btn-danger" title="{{ trans('brackets/admin-ui::admin.btn.delete') }}"><i class="fa fa-trash-o"></i></button>
                                                         </form>
@@ -116,7 +124,7 @@
                                                 Izin
 
                                                 <template v-if="judulPembinaan[new Date(daysInPeriod[d]).getTime()/1000] != null">
-                                                    @can('admin.discipleship-detail.delete')
+                                                    @can('admin.discipleship-detail.delete-detail')
                                                         <form @submit.prevent="deleteItem('/admin/discipleship-details/delete/' + day.id + '/detail')" class="pull-right">
                                                             <button type="submit" class="btn btn-sm btn-danger" title="{{ trans('brackets/admin-ui::admin.btn.delete') }}"><i class="fa fa-trash-o"></i></button>
                                                         </form>
@@ -131,7 +139,7 @@
                                                 Hadir
 
                                                 <template v-if="judulPembinaan[new Date(daysInPeriod[d]).getTime()/1000] != null">
-                                                    @can('admin.discipleship-detail.delete')
+                                                    @can('admin.discipleship-detail.delete-detail')
                                                         <form @submit.prevent="deleteItem('/admin/discipleship-details/delete/' + day.id + '/detail')" class="pull-right">
                                                             <button type="submit" class="btn btn-sm btn-danger" title="{{ trans('brackets/admin-ui::admin.btn.delete') }}"><i class="fa fa-trash-o"></i></button>
                                                         </form>
