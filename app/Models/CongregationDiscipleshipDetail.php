@@ -16,6 +16,7 @@ class CongregationDiscipleshipDetail extends Model
         'discipleship_detail_id',
 
         'keterangan',
+        'alasan',
     ];
 
     public function congregation()

@@ -27,8 +27,6 @@ class CreateDiscipleshipDetailsTable extends Migration
             $table->string('judul');
             $table->string('divisi');
             $table->date('tanggal');
-            $table->string('keterangan');
-            $table->string('alasan');
 
             $table->timestamps();
             $table->softDeletes();

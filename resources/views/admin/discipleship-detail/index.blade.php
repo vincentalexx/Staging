@@ -77,7 +77,7 @@
                             <tr>
                                 <th></th>
                                 <th>Judul</th>
-                                <th v-for="judul in judulPembinaan">@{{ judul }}</th>
+                                <th v-for="(judul, j) in judulPembinaan">@{{ judul.judul }}</th>
                             </tr>
                             <tr>
                                 <th></th>
@@ -101,46 +101,48 @@
                                                 Sakit
                                                 
                                                 @can('admin.discipleship-detail.delete')
-                                                    <form @submit.prevent="deleteItem('/admin/discipleship-details/delete/' + day.id)" class="pull-right">
+                                                    <form @submit.prevent="deleteItem('/admin/discipleship-details/delete/' + day.id + '/detail')" class="pull-right">
                                                         <button type="submit" class="btn btn-sm btn-danger" title="{{ trans('brackets/admin-ui::admin.btn.delete') }}"><i class="fa fa-trash-o"></i></button>
                                                     </form>
                                                 @endcan
                                                 <span class="pull-right">&nbsp;</span>
                                                 @can('admin.discipleship-detail.edit-detail')
-                                                    <a class="btn btn-primary btn-spinner btn-sm m-b-0 color-white pull-right" :href="'/admin/discipleship-details/edit/' + item.id + '/' + day.tanggal" role="button"><i class="fa fa-edit"></i></a>
+                                                    <a class="btn btn-primary btn-spinner btn-sm m-b-0 color-white pull-right" :href="'/admin/discipleship-details/edit/' + item.id + '/' + day.tanggal + '/' + judulPembinaan[new Date(daysInPeriod[d]).getTime()/1000].id" role="button"><i class="fa fa-edit"></i></a>
                                                 @endcan
                                             </td>
                                             <td v-else-if="day.keterangan == 'Izin'" style="background-color: orange;">
                                                 Izin
                                                 
                                                 @can('admin.discipleship-detail.delete')
-                                                    <form @submit.prevent="deleteItem('/admin/discipleship-details/delete/' + day.id)" class="pull-right">
+                                                    <form @submit.prevent="deleteItem('/admin/discipleship-details/delete/' + day.id + '/detail')" class="pull-right">
                                                         <button type="submit" class="btn btn-sm btn-danger" title="{{ trans('brackets/admin-ui::admin.btn.delete') }}"><i class="fa fa-trash-o"></i></button>
                                                     </form>
                                                 @endcan
                                                 <span class="pull-right">&nbsp;</span>
                                                 @can('admin.discipleship-detail.edit-detail')
-                                                    <a class="btn btn-primary btn-spinner btn-sm m-b-0 color-white pull-right" :href="'/admin/discipleship-details/edit/' + item.id + '/' + day.tanggal" role="button"><i class="fa fa-edit"></i></a>
+                                                    <a class="btn btn-primary btn-spinner btn-sm m-b-0 color-white pull-right" :href="'/admin/discipleship-details/edit/' + item.id + '/' + day.tanggal + '/' + judulPembinaan[new Date(daysInPeriod[d]).getTime()/1000].id" role="button"><i class="fa fa-edit"></i></a>
                                                 @endcan
                                             </td>
                                             <td v-else-if="day.keterangan == null" style="background-color: lightgreen;">
                                                 Hadir
 
                                                 @can('admin.discipleship-detail.delete')
-                                                    <form @submit.prevent="deleteItem('/admin/discipleship-details/delete/' + day.id)" class="pull-right">
+                                                    <form @submit.prevent="deleteItem('/admin/discipleship-details/delete/' + day.id + '/detail')" class="pull-right">
                                                         <button type="submit" class="btn btn-sm btn-danger" title="{{ trans('brackets/admin-ui::admin.btn.delete') }}"><i class="fa fa-trash-o"></i></button>
                                                     </form>
                                                 @endcan
                                                 <span class="pull-right">&nbsp;</span>
                                                 @can('admin.discipleship-detail.edit-detail')
-                                                    <a class="btn btn-primary btn-spinner btn-sm m-b-0 color-white pull-right" :href="'/admin/discipleship-details/edit/' + item.id + '/' + day.tanggal" role="button"><i class="fa fa-edit"></i></a>
+                                                    <a class="btn btn-primary btn-spinner btn-sm m-b-0 color-white pull-right" :href="'/admin/discipleship-details/edit/' + item.id + '/' + day.tanggal + '/' + judulPembinaan[new Date(daysInPeriod[d]).getTime()/1000].id" role="button"><i class="fa fa-edit"></i></a>
                                                 @endcan
                                             </td>
                                         </template>
                                     </template>
                                     <td v-else style="background-color: pink;">
                                         -
-                                        <a class="btn btn-primary btn-spinner btn-sm m-b-0 color-white pull-right" :href="'/admin/discipleship-details/edit/' + item.id + '/' + daysInPeriod[d]" role="button"><i class="fa fa-edit"></i></a>
+                                        <template v-if="judulPembinaan[new Date(daysInPeriod[d]).getTime()/1000] != '-'">
+                                            <a class="btn btn-primary btn-spinner btn-sm m-b-0 color-white pull-right" :href="'/admin/discipleship-details/edit/' + item.id + '/' + daysInPeriod[d] + '/' + judulPembinaan[new Date(daysInPeriod[d]).getTime()/1000].id" role="button"><i class="fa fa-edit"></i></a>
+                                        </template>
                                     </td>
                                 </template>
                             </tr>

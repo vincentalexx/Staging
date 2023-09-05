@@ -43,7 +43,6 @@ Vue.component('discipleship-detail-form', {
                         this.form.judul = response.data.discipleshipDetail.judul
                     } else {
                         this.form.isTanggalSudahTerisi = false
-                        this.form.judul = ''
                     }
                 })
             }

@@ -122,6 +122,7 @@ Vue.component('discipleship-detail-listing', {
 
             this.nameOfMonth = nameOfMonth
             this.daysInPeriod = days
+            this.filter("discipleship", this.selectedDiscipleship)
             this.filter("month", this.month)
             this.filter("year", this.year)
         },
@@ -131,15 +132,17 @@ Vue.component('discipleship-detail-listing', {
                 url: "/admin/discipleship-details/get-discipleship-list",
                 params: {
                     divisi: this.divisiData,
+                    discipleship: this.selectedDiscipleship,
                 }
             }).then(response => {
                 this.discipleshipList = response.data
-                this.selectedDiscipleship = response.data[0].id
+                if (this.selectedDiscipleship == '') {
+                    this.selectedDiscipleship = response.data[0].id
+                }
                 this.getCalendarData()
             })
         },
         getTotalHadir(year, month) {
-            console.log(this.selectedDiscipleship)
             axios({
                 method: "GET",
                 url: "/admin/discipleship-details/get-total-hadir",
@@ -149,7 +152,6 @@ Vue.component('discipleship-detail-listing', {
                     discipleship: this.selectedDiscipleship,
                 }
             }).then(response => {
-                console.log(response)
                 this.totalHadir = response.data.totalHadir
                 this.judulPembinaan = response.data.judulPembinaan
             })
@@ -267,6 +269,7 @@ Vue.component('discipleship-detail-listing', {
         },
         selectedDiscipleship(val) {
             this.getTotalHadir(this.year, this.month)
+            this.getDiscipleshipList()
         }
     },
 });

@@ -43,7 +43,7 @@ class DiscipleshipDetailsController extends Controller
 
         $pembinaan = Discipleship::where('divisi', $divisi)->first();
 
-        $jenis_pembinaan = $request->jenis_pembinaan == null ? $pembinaan->id : $request->jenis_pembinaan;
+        $discipleship = $request->discipleship == null ? $pembinaan->id : $request->discipleship;
 
         $orderBy = $request->get('orderBy', 'nama_lengkap');
         $orderDirection = $request->get('orderDirection', 'asc');
@@ -62,20 +62,31 @@ class DiscipleshipDetailsController extends Controller
 
         $attendance = [];
         foreach ($congregations as $key => $congregationData) {
-            $attendance[$key] = [];
-            $discipleshipDetails = DiscipleshipDetail::whereDiscipleshipId($jenis_pembinaan)
+            if (!isset($attendance[$key])) {
+                $attendance[$key] = [];
+            }
+            $discipleshipDetails = DiscipleshipDetail::whereDiscipleshipId($discipleship)
                 ->whereYear('tanggal', $year)
                 ->whereMonth('tanggal', $month)
                 ->where('divisi', $divisi)
                 ->get();
 
             foreach ($discipleshipDetails as $discipleshipDetail) {
-                $attendance[$key] = CongregationDiscipleshipDetail::with(['discipleshipDetail'])
+                $congregationDiscpleshipDetail = CongregationDiscipleshipDetail::with(['discipleshipDetail'])
                                     ->where('discipleship_detail_id', $discipleshipDetail->id)
                                     ->where('congregation_id', $congregationData->id)
-                                    ->get();
+                                    ->first();
+
+                if ($congregationDiscpleshipDetail != null) {
+                    $attendance[$key][] = $congregationDiscpleshipDetail;
+                }
+
                 if (count($attendance[$key]) > 0) {
-                    $attendance[$key][0]['tanggal'] = $discipleshipDetail->tanggal;
+                    foreach ($attendance[$key] as $a) {
+                        if(!isset($a['tanggal'])) {
+                            $a['tanggal'] = date('Y-m-d', strtotime($discipleshipDetail->tanggal));
+                        }
+                    }
                 }
             }
         }
@@ -151,6 +162,10 @@ class DiscipleshipDetailsController extends Controller
             $discipleshipDetail = DiscipleshipDetail::where('discipleship_id', $sanitized['discipleship_id'])
                                     ->where('tanggal', $sanitized['tanggal'])
                                     ->first();
+            $discipleshipDetail->update([
+                'updated_by' => Auth::user()->id,
+                'judul' => $sanitized['judul'],
+            ]);
         }
         $discipleshipDetail->congregation()->attach($congregationIds);
 
@@ -175,6 +190,54 @@ class DiscipleshipDetailsController extends Controller
         // TODO your code goes here
     }
 
+    public function editDetail($congregationId, $tanggal, $id) {
+        $discipleshipDetail = DiscipleshipDetail::find($id);
+
+        $congregationDiscpleshipDetail = CongregationDiscipleshipDetail::where('congregation_id', $congregationId)
+                                    ->where('discipleship_detail_id', $id)
+                                    ->first();
+        
+        $congregation = Congregation::find($congregationId);
+
+        return view('admin.discipleship-detail.edit', [
+            'discipleshipDetail' => $discipleshipDetail,
+            'congregationDiscpleshipDetail' => $congregationDiscpleshipDetail,
+            'tanggal' => $tanggal,
+            'congregation' => $congregation,
+        ]);
+    }
+    
+    public function update(Request $request, $congregationId, $discipleshipDetailId) 
+    {
+        $discipleshipDetail = DiscipleshipDetail::find($discipleshipDetailId);
+        $congregationDiscipleshipDetail = CongregationDiscipleshipDetail::where('discipleship_detail_id', $discipleshipDetailId)
+                                            ->where('congregation_id', $congregationId)
+                                            ->first();
+
+        if ($congregationDiscipleshipDetail != null) {
+            $congregationDiscipleshipDetail->update([
+                'keterangan' => $request->keterangan,
+                'alasan' => $request->alasan,
+            ]);
+        } else {
+            $congregationDiscipleshipDetail = CongregationDiscipleshipDetail::create([
+                'congregation_id' => $congregationId,
+                'discipleship_detail_id' => $discipleshipDetailId,
+                'keterangan' => $request->keterangan,
+                'alasan' => $request->alasan,
+            ]);
+        }
+
+        if ($request->ajax()) {
+            return [
+                'redirect' => url('admin/discipleship-details/' . $discipleshipDetail->divisi),
+                'message' => trans('brackets/admin-ui::admin.operation.succeeded'),
+            ];
+        }
+
+        return redirect('admin/discipleship-details/' . $discipleshipDetail->divisi);
+    }
+
     /**
      * Show the form for editing the specified resource.
      *
@@ -192,32 +255,6 @@ class DiscipleshipDetailsController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
-     *
-     * @param UpdateDiscipleshipDetail $request
-     * @param DiscipleshipDetail $discipleshipDetail
-     * @return array|RedirectResponse|Redirector
-     */
-    public function update(UpdateDiscipleshipDetail $request, DiscipleshipDetail $discipleshipDetail)
-    {
-        // Sanitize input
-        $sanitized = $request->getSanitized();
-        $sanitized['updated_by'] = Auth::user()->id;
-
-        // Update changed values DiscipleshipDetail
-        $discipleshipDetail->update($sanitized);
-
-        if ($request->ajax()) {
-            return [
-                'redirect' => url('admin/discipleship-details'),
-                'message' => trans('brackets/admin-ui::admin.operation.succeeded'),
-            ];
-        }
-
-        return redirect('admin/discipleship-details');
-    }
-
-    /**
      * Remove the specified resource from storage.
      *
      * @param DestroyDiscipleshipDetail $request
@@ -228,6 +265,18 @@ class DiscipleshipDetailsController extends Controller
     public function destroy(DestroyDiscipleshipDetail $request, DiscipleshipDetail $discipleshipDetail)
     {
         $discipleshipDetail->delete();
+
+        if ($request->ajax()) {
+            return response(['message' => trans('brackets/admin-ui::admin.operation.succeeded')]);
+        }
+
+        return redirect()->back();
+    }
+
+    public function destroyDetail(Request $request, $id)
+    {
+        $congregationDiscpleshipDetail = CongregationDiscipleshipDetail::find($id);
+        $congregationDiscpleshipDetail->delete();
 
         if ($request->ajax()) {
             return response(['message' => trans('brackets/admin-ui::admin.operation.succeeded')]);
@@ -313,7 +362,7 @@ class DiscipleshipDetailsController extends Controller
                                 ->whereNull('keterangan')
                                 ->count();
 
-            $judulPembinaan[strtotime($daysInPeriod[$key])] = $discipleshipDetail->judul;
+            $judulPembinaan[strtotime($daysInPeriod[$key])] = $discipleshipDetail;
         }
 
         return response()->json([

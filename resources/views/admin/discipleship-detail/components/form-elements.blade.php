@@ -19,23 +19,13 @@
     </div>
 </div>
 
-<template v-if="!form.isTanggalSudahTerisi">
-    <div class="form-group row align-items-center" :class="{'has-danger': errors.has('judul'), 'has-success': fields.judul && fields.judul.valid }">
-        <label for="judul" class="col-form-label text-md-right" :class="isFormLocalized ? 'col-md-4' : 'col-md-2'">{{ trans('admin.discipleship-detail.columns.judul') }}</label>
-        <div :class="isFormLocalized ? 'col-md-4' : 'col-md-9 col-xl-8'">
-            <input type="text" v-model="form.judul" v-validate="'required'" @input="validate($event)" class="form-control" :class="{'form-control-danger': errors.has('judul'), 'form-control-success': fields.judul && fields.judul.valid}" id="judul" name="judul" placeholder="{{ trans('admin.discipleship-detail.columns.judul') }}">
-            <div v-if="errors.has('judul')" class="form-control-feedback form-text" v-cloak>@{{ errors.first('judul') }}</div>
-        </div>
+<div class="form-group row align-items-center" :class="{'has-danger': errors.has('judul'), 'has-success': fields.judul && fields.judul.valid }">
+    <label for="judul" class="col-form-label text-md-right" :class="isFormLocalized ? 'col-md-4' : 'col-md-2'">{{ trans('admin.discipleship-detail.columns.judul') }}</label>
+    <div :class="isFormLocalized ? 'col-md-4' : 'col-md-9 col-xl-8'">
+        <input type="text" v-model="form.judul" v-validate="'required'" @input="validate($event)" class="form-control" :class="{'form-control-danger': errors.has('judul'), 'form-control-success': fields.judul && fields.judul.valid}" id="judul" name="judul" placeholder="{{ trans('admin.discipleship-detail.columns.judul') }}">
+        <div v-if="errors.has('judul')" class="form-control-feedback form-text" v-cloak>@{{ errors.first('judul') }}</div>
     </div>
-</template>
-<template v-else>
-    <div class="form-group row align-items-center" :class="{'has-danger': errors.has('judul'), 'has-success': fields.judul && fields.judul.valid }">
-        <label for="judul" class="col-form-label text-md-right" :class="isFormLocalized ? 'col-md-4' : 'col-md-2'">{{ trans('admin.discipleship-detail.columns.judul') }}</label>
-        <div :class="isFormLocalized ? 'col-md-4' : 'col-md-9 col-xl-8'">
-            @{{ this.discipleshipDetail.judul }}
-        </div>
-    </div>
-</template>
+</div>
 
 <div class="form-group row align-items-center" :class="{'has-danger': errors.has('congregation'), 'has-success': this.fields.congregation && this.fields.congregation.valid }">
     <label for="congregation" class="col-form-label text-md-right" :class="isFormLocalized ? 'col-md-4' : 'col-md-2'">

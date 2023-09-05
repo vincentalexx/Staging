@@ -166,9 +166,11 @@ Route::middleware(['auth:' . config('admin-auth.defaults.guard'), 'admin'])->gro
             Route::get('/create/{divisi}',                              'DiscipleshipDetailsController@create')->name('create');
             Route::post('/{divisi}',                                    'DiscipleshipDetailsController@store')->name('store');
             Route::get('/{discipleshipDetail}/edit',                    'DiscipleshipDetailsController@edit')->name('edit');
+            Route::get('/edit/{congregationId}/{tanggal}/{id}',         'DiscipleshipDetailsController@editDetail')->name('editDetail');
             Route::post('/bulk-destroy',                                'DiscipleshipDetailsController@bulkDestroy')->name('bulk-destroy');
-            Route::post('/{discipleshipDetail}',                        'DiscipleshipDetailsController@update')->name('update');
+            Route::post('/{discipleshipDetailId}/{congregationId}/update','DiscipleshipDetailsController@update')->name('update');
             Route::delete('/{discipleshipDetail}',                      'DiscipleshipDetailsController@destroy')->name('destroy');
+            Route::delete('/delete/{id}/detail',                        'DiscipleshipDetailsController@destroyDetail');
         });
     });
 });

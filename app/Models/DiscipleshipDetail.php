@@ -14,7 +14,6 @@ class DiscipleshipDetail extends Model
         'judul',
         'tanggal',
         'keterangan',
-        'alasan',
 
         'created_by',
         'updated_by',
@@ -26,7 +25,6 @@ class DiscipleshipDetail extends Model
         'deleted_at',
         'tanggal',
         'updated_at',
-    
     ];
     
     protected $appends = ['resource_url'];

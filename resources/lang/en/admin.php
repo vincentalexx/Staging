@@ -208,6 +208,7 @@ return [
             'keterangan' => 'Keterangan',
             'tanggal' => 'Tanggal',
             'updated_by' => 'Updated by',
+            'alasan' => 'Alasan',
         ],
     ],
 

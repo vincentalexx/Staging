@@ -20,6 +20,7 @@ class CreateCongregationDiscipleshipDetailTable extends Migration
             $table->foreignId('discipleship_detail_id')->constrained();
 
             $table->string('keterangan')->nullable();
+            $table->text('alasan')->nullable();
 
             $table->timestamps();
         });
