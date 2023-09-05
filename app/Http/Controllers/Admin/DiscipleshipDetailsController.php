@@ -55,9 +55,32 @@ class DiscipleshipDetailsController extends Controller
             $orderDirection = 'asc';
         }
 
-        $congregation = Congregation::where(function ($x) use ($search) {
-            $x->where('nama_lengkap', 'LIKE', '%' . $search . '%');
-        });
+        $congregations = Congregation::orderBy($orderBy, $orderDirection)->get();
+
+        $congregationIds = [];
+        foreach ($congregations as $key => $congregationData) {
+            $discipleshipDetails = DiscipleshipDetail::whereDiscipleshipId($discipleship)
+                ->whereYear('tanggal', $year)
+                ->whereMonth('tanggal', $month)
+                ->where('divisi', $divisi)
+                ->get();
+
+            foreach ($discipleshipDetails as $discipleshipDetail) {
+                $congregationDiscpleshipDetail = CongregationDiscipleshipDetail::with(['discipleshipDetail'])
+                                    ->where('discipleship_detail_id', $discipleshipDetail->id)
+                                    ->where('congregation_id', $congregationData->id)
+                                    ->first();
+
+                if ($congregationDiscpleshipDetail != null) {
+                    $congregationIds[] = $congregationData->id;
+                }
+            }
+        }
+
+        $congregation = Congregation::whereIn('id', $congregationIds)
+            ->where(function ($x) use ($search) {
+                $x->where('nama_lengkap', 'LIKE', '%' . $search . '%');
+            });
 
         $data = $congregation->orderBy($orderBy, $orderDirection)->paginate($request->get('per_page', 10));
 

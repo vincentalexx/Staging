@@ -27,8 +27,29 @@ class AbsensiPembinaanSheet implements FromView, WithTitle
     {
         $congregations = Congregation::orderBy('nama_lengkap', 'asc')->get();
         
-        $attendances = [];
         $congregationIds = [];
+        foreach ($congregations as $key => $congregationData) {
+            $discipleshipDetails = DiscipleshipDetail::whereDiscipleshipId($this->discipleship->id)
+                ->whereYear('tanggal', $this->year)
+                ->whereMonth('tanggal', $this->month)
+                ->where('divisi', $this->discipleship->divisi)
+                ->get();
+
+            foreach ($discipleshipDetails as $discipleshipDetail) {
+                $congregationDiscpleshipDetail = CongregationDiscipleshipDetail::with(['discipleshipDetail'])
+                                    ->where('discipleship_detail_id', $discipleshipDetail->id)
+                                    ->where('congregation_id', $congregationData->id)
+                                    ->first();
+
+                if ($congregationDiscpleshipDetail != null) {
+                    $congregationIds[] = $congregationData->id;
+                }
+            }
+        }
+
+        $congregations = Congregation::whereIn('id', $congregationIds)->orderBy('nama_lengkap', 'asc')->get();
+
+        $attendances = [];
         foreach ($congregations as $key => $congregationData) {
             if (!isset($attendances[$key])) {
                 $attendances[$key] = [];
@@ -47,7 +68,6 @@ class AbsensiPembinaanSheet implements FromView, WithTitle
 
                 if ($congregationDiscpleshipDetail != null) {
                     $attendances[$key][] = $congregationDiscpleshipDetail;
-                    $congregationIds[] = $congregationData->id;
                 }
 
                 if (count($attendances[$key]) > 0) {
@@ -59,8 +79,6 @@ class AbsensiPembinaanSheet implements FromView, WithTitle
                 }
             }
         }
-
-        $congregations = Congregation::whereIn('id', $congregationIds)->orderBy('nama_lengkap', 'asc')->get();
 
         $selectedMonth = strtotime($this->year . '-' . $this->month . '-01');
 
