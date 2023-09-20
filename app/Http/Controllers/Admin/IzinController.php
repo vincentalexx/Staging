@@ -18,26 +18,23 @@ class IzinController extends Controller
         ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param IzinRequest $request
-     * @return array|RedirectResponse|Redirector
-     */
-    public function store(IzinRequest $request)
+    public function store(Request $request)
     {
-        // Sanitize input
-        // $sanitized = $request->getSanitized();
+        $data = $request->validate([
+            'nama' => ['required', 'string'],
+            'angkatan' => ['required', 'string'],
+            'kegiatan' => ['required', 'string'],
+            'tgl_kegiatan' => ['required', 'date'],
+            'alasan' => ['required', 'string'],
+        ]);
 
-        // Store
-        // $izin = Izin::create($sanitized);
+        $izin = Izin::create($data);
 
-        dd($request);
-        // return redirect('thankyou');
+        return redirect('thankyou');
     }
 
     public function thankyou()
     {
-        return view('admin.auth.thankyou');
+        return view('admin.auth.thankyou2');
     }
 }

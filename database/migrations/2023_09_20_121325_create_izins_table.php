@@ -13,7 +13,7 @@ class CreateIzinsTable extends Migration
      */
     public function up()
     {
-        Schema::create('izin', function (Blueprint $table) {
+        Schema::create('izins', function (Blueprint $table) {
             $table->id();
 
             $table->string('nama');
@@ -25,5 +25,15 @@ class CreateIzinsTable extends Migration
             $table->timestamps();
             $table->softDeletes();
         });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('_izin');
     }
 }

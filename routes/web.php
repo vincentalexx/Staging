@@ -182,5 +182,5 @@ Route::post('upload',                                       'App\Http\Controller
 Route::prefix('/IzinKegiatan')->namespace('App\Http\Controllers\Admin')->name('/')->group(static function() {
     Route::get('/',                                             'IzinController@index')->name('index');
     Route::post('/izin',                                        'IzinController@store')->name('store');
-    Route::get('/thankyou',                                     'IzinController@thankyou')->name('thankyou');
+    Route::get('/thankyou',                                     'IzinController@thankyou2')->name('thankyou');
 });
