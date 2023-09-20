@@ -175,3 +175,12 @@ Route::middleware(['auth:' . config('admin-auth.defaults.guard'), 'admin'])->gro
         });
     });
 });
+
+
+// izin kegiatan
+Route::post('upload',                                       'App\Http\Controllers\Admin\FileUploadController@upload')->name('brackets/media::upload');
+Route::prefix('/IzinKegiatan')->namespace('App\Http\Controllers\Admin')->name('/')->group(static function() {
+    Route::get('/',                                             'IzinController@index')->name('index');
+    Route::post('/izin',                                        'IzinController@store')->name('store');
+    Route::get('/thankyou',                                     'IzinController@thankyou')->name('thankyou');
+});
