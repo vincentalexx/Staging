@@ -17,7 +17,7 @@ Route::post('upload',                                       'App\Http\Controller
 Route::prefix('/')->namespace('App\Http\Controllers\Admin')->name('/')->group(static function() {
     Route::get('/',                                             'SignUpController@index')->name('index');
     Route::post('signup',                                       'SignUpController@store')->name('store');
-    Route::get('/thankyou',                                     'SignUpController@thankyou')->name('thankyou');
+    // Route::get('/thankyou',                                     'SignUpController@thankyou')->name('thankyou');
 });
 
 /* Auto-generated admin routes */
@@ -182,5 +182,8 @@ Route::post('upload',                                       'App\Http\Controller
 Route::prefix('/IzinKegiatan')->namespace('App\Http\Controllers\Admin')->name('/')->group(static function() {
     Route::get('/',                                             'IzinController@index')->name('index');
     Route::post('/izin',                                        'IzinController@store')->name('store');
-    Route::get('/thankyou',                                     'IzinController@thankyou2')->name('thankyou');
+    Route::get('/thankyou',                                     'IzinController@thankyou')->name('thankyou');
+    Route::get('/getPerson',                                    'IzinController@getPerson')->name('getPerson');
+    Route::get('/kebaktian',                                      'IzinController@kebaktian')->name('kebaktian');
+    Route::get('/pembinaan',                                      'IzinController@pembinaan')->name('pembinaan');
 });
