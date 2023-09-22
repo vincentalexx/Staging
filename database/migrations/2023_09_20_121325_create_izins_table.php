@@ -17,7 +17,7 @@ class CreateIzinsTable extends Migration
             $table->id();
 
             $table->string('nama');
-            $table->string('angkatan');
+            $table->foreignId('congregation_id')->constrained();            $table->string('angkatan');
             $table->string('kegiatan');
             $table->date('tgl_kegiatan');
             $table->string('keterangan');
@@ -35,6 +35,6 @@ class CreateIzinsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('_izin');
+        Schema::dropIfExists('izins');
     }
 }

@@ -10,6 +10,7 @@ class Izin extends Model
     use SoftDeletes;
     protected $fillable = [
         'nama',
+        'congregation_id',
         'angkatan',
         'kegiatan',
         'tgl_kegiatan',

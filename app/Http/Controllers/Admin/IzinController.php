@@ -32,6 +32,9 @@ class IzinController extends Controller
         $keterangan = $request->keterangan;
         $alasan = $request->alasan;
         $tanggal = $request->tgl_kegiatan;
+        
+        $data = Congregation::with([]);
+        $congregationId = $data->where('nama_lengkap', 'LIKE', '%' . $nama . '%')->pluck('id')->first();
 
         $data = $request->validate([
             'nama' => ['required', 'string'],
@@ -42,31 +45,25 @@ class IzinController extends Controller
             'alasan' => ['required', 'string'],
         ]);
 
+        $data['congregation_id'] = $congregationId;
+
         $izin = Izin::create($data);
 
         if($kegiatan == 'Kebaktian'){   
-            $congregationId = Congregation::where(function ($x) use ($nama) {
-                $x->where('nama_lengkap', 'LIKE', '%' . $nama . '%')->get('congregation_id');
-            });
-    
-            $attendance[] = CongregationAttendance::whereCongregationId($congregationId)
-                ->whereYear('tanggal', $year)
-                ->whereMonth('tanggal', $month)
-                ->get();
-    
+            
             $congregationAttendance = CongregationAttendance::where('congregation_id', $congregationId)
-                                        ->where('tanggal', $tanggal)
-                                        ->first();
-    
+                                    ->where('tanggal', $tanggal)
+                                    ->first();
+            
             if ($congregationAttendance != null) {
+                return redirect('IzinKegiatan/thankyou');
                 $congregationAttendance->update([
                     'keterangan' => $keterangan,
-                    // 'alasan' => $alasan,
+                    'alasan' => $alasan,
                 ]);
             }
         }
         
-        return redirect('IzinKegiatan/thankyou');
     }
 
     public function thankyou()
