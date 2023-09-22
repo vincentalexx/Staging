@@ -11,7 +11,7 @@ use App\Models\DiscipleshipDetail;
 use App\Models\Izin;
 use Illuminate\Http\Request;
 
-class IzinController extends Controller
+class IzinDetailsController extends Controller
 {
     public function index(Request $request)
     {
@@ -72,6 +72,4 @@ class IzinController extends Controller
     {
         return view('admin.auth.thankyou2');
     }
-
-    
 }

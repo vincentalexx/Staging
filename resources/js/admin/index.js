@@ -10,3 +10,4 @@ import './budget';
 import './budget-usage';
 import './discipleship';
 import './discipleship-detail';
+import './izin';

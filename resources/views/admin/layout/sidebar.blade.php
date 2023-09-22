@@ -36,6 +36,8 @@
             @can('admin.discipleship-detail.index-pemuda')
                 <li class="nav-item"><a class="nav-link" href="{{ url('admin/discipleship-details/Pemuda') }}"><i class="nav-icon icon-drop"></i> {{ trans('admin.discipleship-detail.title-pemuda') }}</a></li>
             @endcan
+            <li class="nav-title">Ketidakhardiran</li>
+           <li class="nav-item"><a class="nav-link" href="{{ url('admin/izins') }}"><i class="nav-icon icon-book-open"></i> Ketidakhadiran</a></li>
            {{-- Do not delete me :) I'm used for auto-generation menu items --}}
 
             <li class="nav-title">{{ trans('brackets/admin-ui::admin.sidebar.settings') }}</li>

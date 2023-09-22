@@ -93,3 +93,20 @@ $factory->define(App\Models\DiscipleshipDetail::class, static function (Faker\Ge
         
     ];
 });
+/** @var  \Illuminate\Database\Eloquent\Factory $factory */
+$factory->define(App\Models\Izin::class, static function (Faker\Generator $faker) {
+    return [
+        'nama' => $faker->sentence,
+        'congregation_id' => $faker->sentence,
+        'angkatan' => $faker->sentence,
+        'kegiatan' => $faker->sentence,
+        'tgl_kegiatan' => $faker->date(),
+        'keterangan' => $faker->sentence,
+        'alasan' => $faker->sentence,
+        'created_at' => $faker->dateTime,
+        'updated_at' => $faker->dateTime,
+        'deleted_at' => null,
+        
+        
+    ];
+});
