@@ -50,18 +50,20 @@ class IzinController extends Controller
         $izin = Izin::create($data);
 
         if($kegiatan == 'Kebaktian'){   
-            
             $congregationAttendance = CongregationAttendance::where('congregation_id', $congregationId)
-                                    ->where('tanggal', $tanggal)
-                                    ->first();
+            ->where('tanggal', $tanggal)
+            ->first();
             
             if ($congregationAttendance != null) {
-                return redirect('IzinKegiatan/thankyou');
-                $congregationAttendance->update([
-                    'keterangan' => $keterangan,
-                    'alasan' => $alasan,
-                ]);
+                $congregationAttendance->delete();
             }
+            
+            $congregationAttendance = CongregationAttendance::create([
+                'congregation_id' => $congregationId,
+                'tanggal' => $tanggal,
+                'keterangan' => $request->keterangan,
+            ]);
+            return redirect('IzinKegiatan/thankyou');
         }
         
     }
