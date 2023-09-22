@@ -177,10 +177,27 @@ Route::middleware(['auth:' . config('admin-auth.defaults.guard'), 'admin'])->gro
 });
 
 
+
+
 // izin kegiatan
 Route::post('upload',                                       'App\Http\Controllers\Admin\FileUploadController@upload')->name('brackets/media::upload');
 Route::prefix('/IzinKegiatan')->namespace('App\Http\Controllers\Admin')->name('/')->group(static function() {
-    Route::get('/',                                             'IzinController@index')->name('index');
-    Route::post('/izin',                                        'IzinController@store')->name('store');
-    Route::get('/thankyou',                                     'IzinController@thankyou')->name('thankyou');
+    Route::get('/',                                             'IzinDetailsController@index')->name('index');
+    Route::post('/izin',                                        'IzinDetailsController@store')->name('store');
+    Route::get('/thankyou',                                     'IzinDetailsController@thankyou')->name('thankyou');
+});
+
+/* Auto-generated admin routes */
+Route::middleware(['auth:' . config('admin-auth.defaults.guard'), 'admin'])->group(static function () {
+    Route::prefix('admin')->namespace('App\Http\Controllers\Admin')->name('admin/')->group(static function() {
+        Route::prefix('izins')->name('izins/')->group(static function() {
+            Route::get('/',                                             'IzinsController@index')->name('index');
+            Route::get('/create',                                       'IzinsController@create')->name('create');
+            Route::post('/',                                            'IzinsController@store')->name('store');
+            Route::get('/{izin}/edit',                                  'IzinsController@edit')->name('edit');
+            Route::post('/bulk-destroy',                                'IzinsController@bulkDestroy')->name('bulk-destroy');
+            Route::post('/{izin}',                                      'IzinsController@update')->name('update');
+            Route::delete('/{izin}',                                    'IzinsController@destroy')->name('destroy');
+        });
+    });
 });

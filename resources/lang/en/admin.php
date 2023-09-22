@@ -212,5 +212,27 @@ return [
         ],
     ],
 
+    'izin' => [
+        'title' => 'Izins',
+
+        'actions' => [
+            'index' => 'Izins',
+            'create' => 'New Izin',
+            'edit' => 'Edit :name',
+        ],
+
+        'columns' => [
+            'id' => 'ID',
+            'nama' => 'Nama',
+            'congregation_id' => 'Congregation',
+            'angkatan' => 'Angkatan',
+            'kegiatan' => 'Kegiatan',
+            'tgl_kegiatan' => 'Tgl kegiatan',
+            'keterangan' => 'Keterangan',
+            'alasan' => 'Alasan',
+            
+        ],
+    ],
+
     // Do not delete me :) I'm used for auto-generation
 ];
