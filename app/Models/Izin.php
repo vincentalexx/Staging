@@ -13,6 +13,7 @@ class Izin extends Model
         'angkatan',
         'kegiatan',
         'tgl_kegiatan',
+        'keterangan',
         'alasan',
     ];
     

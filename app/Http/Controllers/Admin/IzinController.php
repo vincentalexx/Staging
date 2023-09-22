@@ -29,6 +29,7 @@ class IzinController extends Controller
         $angkatan = $request->angkatan;
         $month = $request->month == null ? date('m') : $request->month;
         $year = $request->year == null ? date('Y') : $request->year;
+        $keterangan = $request->keterangan;
         $alasan = $request->alasan;
         $tanggal = $request->tgl_kegiatan;
 
@@ -37,13 +38,14 @@ class IzinController extends Controller
             'angkatan' => ['required', 'string'],
             'kegiatan' => ['required', 'string'],
             'tgl_kegiatan' => ['required', 'date'],
+            'keterangan' => ['required', 'string'],
             'alasan' => ['required', 'string'],
         ]);
 
         $izin = Izin::create($data);
 
         if($kegiatan == 'Kebaktian'){   
-            $congregationId= Congregation::where(function ($x) use ($nama) {
+            $congregationId = Congregation::where(function ($x) use ($nama) {
                 $x->where('nama_lengkap', 'LIKE', '%' . $nama . '%')->get('congregation_id');
             });
     
@@ -58,7 +60,8 @@ class IzinController extends Controller
     
             if ($congregationAttendance != null) {
                 $congregationAttendance->update([
-                    'keterangan' => $alasan,
+                    'keterangan' => $keterangan,
+                    // 'alasan' => $alasan,
                 ]);
             }
         }

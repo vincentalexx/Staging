@@ -35,14 +35,22 @@
                     <label>Kegiatan</label>
                     <br>
                     <select name="kegiatan" id="select-kegiatan">
-                        <option value="kebaktian">Kebaktian</option>
-                        <option value="pembinaan">Pembinaan</option>
+                        <option value="Kebaktian">Kebaktian</option>
+                        <option value="Pembinaan">Pembinaan</option>
                     </select>
                 </div>
                 <div class="input-box">
                     <label>Date</label>
                     <input type="date" name="tgl_kegiatan" placeholder="mm/dd/yyyy" required />
                 </div>
+            </div>
+            <div class="input-box">
+                <label>Keterangan</label>
+                <br>
+                <select name="keterangan" id="select-kegiatan">
+                    <option value="Sakit">Sakit</option>
+                    <option value="Izin">Izin</option>
+                </select>
             </div>
             <div class="input-box">
                 <label>Alasan</label>

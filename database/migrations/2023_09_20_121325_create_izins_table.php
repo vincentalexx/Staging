@@ -20,6 +20,7 @@ class CreateIzinsTable extends Migration
             $table->string('angkatan');
             $table->string('kegiatan');
             $table->date('tgl_kegiatan');
+            $table->string('keterangan');
             $table->string('alasan');
 
             $table->timestamps();
